@@ -1,6 +1,6 @@
 function AboutMe() {
   return (
-    <div class="col-sm-8">
+    <div className="col-sm-8">
       <h3>About Me</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac

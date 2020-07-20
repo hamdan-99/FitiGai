@@ -1,4 +1,6 @@
 import data from "./data.js";
+import profile from "./data.js";
+
 import Card from "../components/Cards";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,6 +9,7 @@ import Pagination from "./../components/pagination";
 import { useState } from "react";
 import { paginate } from "./../utils/paginate";
 import Router from "next/router";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -24,12 +27,37 @@ const Results = (props) => {
   let [pagiress, SetPagiress] = useState();
   let [pagiData, SetPagiData] = useState();
 
+  const router = useRouter();
+
   const classes = useStyles();
   const handlePageChange = (page) => {
     SetCurrentPage(page);
   };
   pagiress = paginate(props.props.ress, currentPage, pageSize);
   pagiData = paginate(data, currentPage, pageSize);
+
+  const handleClick = (coachID, serviceID) => {
+    console.log("coachID", coachID.lang, "serviceID", serviceID);
+    profile.push(coachID);
+    profile.push(serviceID);
+  
+    router.push({
+      pathname: "/profile",
+      query: {
+        _id: serviceID._id,
+        location: serviceID.location,
+        owner: serviceID.owner,
+        title: serviceID.title,
+        description: serviceID.description,
+        price: serviceID.price,
+        address: serviceID.address,
+        lang : coachID.lang,
+        firstName : coachID.firstName,
+        lastName : coachID.lastName,
+      },
+    });
+  };
+
   return (
     <div>
       {pagiData.length > 0 && (
@@ -38,20 +66,19 @@ const Results = (props) => {
             <Grid className={classes.gridContainer}>
               <Grid>
                 <Grid container justify="center" spacing={4}>
-                  {pagiData.map(
-                    (card) =>
-                      props.props.coaches.map((coach) =>
-                        card.owner === coach._id ? (
-                          <Grid key={card._id} item xs={3}>
-                            <Card
-                              className={classes.paper}
-                              card={card}
-                              coachName={coach}
-                              key={card._id}
-                            />
-                          </Grid>
-                        ) : null
-                      )
+                  {pagiData.map((card) =>
+                    props.props.coaches.map((coach) =>
+                      card.owner === coach._id ? (
+                        <Grid onClick={handleClick} key={card._id} item xs={3}>
+                          <Card
+                            className={classes.paper}
+                            card={card}
+                            coachName={coach}
+                            key={card._id}
+                          />
+                        </Grid>
+                      ) : null
+                    )
                   )}
                 </Grid>
               </Grid>
@@ -79,7 +106,12 @@ const Results = (props) => {
                   {pagiress.map((all) =>
                     props.props.coaches.map((coach) =>
                       all.owner === coach._id ? (
-                        <Grid key={all._id} item xs={3}>
+                        <Grid
+                          onClick={(e) => handleClick(coach, all)}
+                          key={all._id}
+                          item
+                          xs={3}
+                        >
                           <Card
                             className={classes.paper}
                             all={all}

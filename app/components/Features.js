@@ -1,6 +1,6 @@
 function Features() {
   return (
-    <div class="col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center">
+    <div className="col-sm-4 shadow-lg p-3 mb-5 bg-white rounded text-center">
       <h4 className="">
         Age <span className="badge badge-info ml-2">35</span>
       </h4>

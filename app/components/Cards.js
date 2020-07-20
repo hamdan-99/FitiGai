@@ -102,7 +102,7 @@ const Cards = (props) => {
 
                       {/* backside */}
 
-                      <div className="backside">
+                      <div  className="backside">
                         <a className="btn-neon">
                           <div>
                             <h4 className="card-head">About</h4>

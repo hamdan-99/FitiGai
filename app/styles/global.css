@@ -13,7 +13,7 @@ body {
   animation: animate 16s ease-in-out infinite;
 }
 
-
+/* 
 @keyframes animate {
   0%,
   100% {
@@ -24,7 +24,7 @@ body {
     background-image: url(https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2F1354200.jpg?v=1595025968590);
   }
  
-}
+} */
 
 .page {
   display: grid;

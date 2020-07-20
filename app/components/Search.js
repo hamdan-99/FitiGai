@@ -11,6 +11,7 @@ const Search = (props) => {
   const router = useRouter();
   let exTitle = title;
   let exLocation = location;
+  
   const handleClick = (event) => {
     event.preventDefault();
 
