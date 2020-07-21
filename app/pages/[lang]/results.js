@@ -47,8 +47,7 @@ const Results = (props) => {
     profile.push(serviceID);
 
     router.push({
-      pathname: "/[lang]/profile",
-      asPath: `/${locale}/profile`,
+      pathname: `/${locale}/profile`,
       query: {
         _id: serviceID._id,
         location: serviceID.location,
