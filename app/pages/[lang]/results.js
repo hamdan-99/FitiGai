@@ -1,5 +1,6 @@
 import data from "../data.js";
 import profile from "../data.js";
+import fetch from "node-fetch";
 
 import Card from "../../components/Cards";
 import { Grid } from "@material-ui/core";
