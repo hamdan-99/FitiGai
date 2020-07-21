@@ -1,5 +1,11 @@
+
 import React from "react";
+import useTranslation from '../hooks/useTranslation'
+
+
 const Cards = (props) => {
+  const { t } = useTranslation()
+
   return (
     <div>
       {props.card && (
@@ -22,9 +28,9 @@ const Cards = (props) => {
                           />
                           <div className="coachInfo">
                             <p className="card-name">{`${props.coachName.firstName} ${props.coachName.lastName}`}</p>
-                            <h5 className="card-title">{props.card.title}</h5>
+                            <h5 className="card-title">{t(props.card.title)}</h5>
                             <p className="card-location">
-                              {props.card.location}
+                              {t(props.card.location)}
                             </p>
                             <p className="card-lang">
                               {props.coachName.lang.slice(0, 2).toUpperCase()}
@@ -42,10 +48,10 @@ const Cards = (props) => {
                       <div className="backside">
                         <a className="btn-neon">
                           <div>
-                            <h4 className="card-head">About</h4>
+                            <h4 className="card-head">{t('About')}</h4>
                             <p className="card-text">
                               <span className="backText">
-                                {props.card.description}
+                                {t(props.card.description)}
                               </span>
                             </p>
                           </div>
@@ -85,9 +91,9 @@ const Cards = (props) => {
                           />
                           <div className="coachInfo">
                             <p className="card-name">{`${props.coachName.firstName} ${props.coachName.lastName}`}</p>
-                            <h5 className="card-title">{props.all.title}</h5>
+                            <h5 className="card-title">{t(props.all.title)}</h5>
                             <p className="card-location">
-                              {props.all.location}
+                              {t(props.all.location)}
                             </p>
                             <p className="card-lang">
                               {props.coachName.lang.slice(0, 2).toUpperCase()}
@@ -102,13 +108,13 @@ const Cards = (props) => {
 
                       {/* backside */}
 
-                      <div  className="backside">
+                      <div className="backside">
                         <a className="btn-neon">
                           <div>
-                            <h4 className="card-head">About</h4>
+                            <h4 className="card-head">{t('About')}</h4>
                             <p className="card-text">
                               <span className="backText">
-                                {props.all.description}
+                                {t(props.all.description)}
                               </span>
                             </p>
                           </div>

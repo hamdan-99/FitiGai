@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { addDays } from "date-fns";
+import useTranslation from '../hooks/useTranslation'
+
 function Calendar() {
+  const { t } = useTranslation()
   const [selectedDate, setSelectedDate] = useState(null);
   const highlightWithRanges = [
     {
@@ -26,7 +29,7 @@ function Calendar() {
     <DatePicker
       selected={selectedDate}
       onChange={(date) => setSelectedDate(date)}
-      placeholderText="Select a weekday"
+      placeholderText={t("Select a weekday")}
       minDate={new Date()}
       filterDate={(date) => date.getDay() !== 0}
       highlightDates={highlightWithRanges}

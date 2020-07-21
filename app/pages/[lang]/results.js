@@ -1,15 +1,18 @@
-import data from "./data.js";
-import profile from "./data.js";
+import data from "../data.js";
+import profile from "../data.js";
 
-import Card from "../components/Cards";
+import Card from "../../components/Cards";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Layout from "../components/Layout";
-import Pagination from "./../components/pagination";
+import Layout from "../../components/Layout";
+import Pagination from "../../components/pagination";
 import { useState } from "react";
-import { paginate } from "./../utils/paginate";
+import { paginate } from "../../utils/paginate";
 import Router from "next/router";
 import { useRouter } from "next/router";
+import WithLocaleWrapper from '../../hocs/withLocale'
+import useTranslation from '../hooks/useTranslation'
+
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -28,6 +31,8 @@ const Results = (props) => {
   let [pagiData, SetPagiData] = useState();
 
   const router = useRouter();
+  const { locale, t } = useTranslation()
+
 
   const classes = useStyles();
   const handlePageChange = (page) => {
@@ -40,9 +45,10 @@ const Results = (props) => {
     console.log("coachID", coachID.lang, "serviceID", serviceID);
     profile.push(coachID);
     profile.push(serviceID);
-  
+
     router.push({
-      pathname: "/profile",
+      pathname: "/[lang]/profile",
+      asPath: `/${locale}/profile`,
       query: {
         _id: serviceID._id,
         location: serviceID.location,
@@ -51,9 +57,9 @@ const Results = (props) => {
         description: serviceID.description,
         price: serviceID.price,
         address: serviceID.address,
-        lang : coachID.lang,
-        firstName : coachID.firstName,
-        lastName : coachID.lastName,
+        lang: coachID.lang,
+        firstName: coachID.firstName,
+        lastName: coachID.lastName,
       },
     });
   };
@@ -164,4 +170,4 @@ Results.getInitialProps = async ({ query }) => {
   };
 };
 
-export default Results;
+export default WithLocaleWrapper(Results);

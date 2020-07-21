@@ -1,14 +1,16 @@
-import Layout from "../components/Layout";
-import Header from "../components/Header";
-import Features from "../components/Features";
-import AboutMe from "../components/AboutMe";
-import profile from "./data.js";
+import React, { useState } from "react";
+import Layout from "../../components/Layout";
+import Header from "../../components/Header";
+import Features from "../../components/Features";
+import AboutMe from "../../components/AboutMe";
+import profile from "../data.js";
 import { useState, useEffect } from "react";
-
-// import Calendar from '../components/Calendar';
+import WithLocaleWrapper from '../../hocs/withLocale'
+import useTranslation from '../../hooks/useTranslation'
 
 const Profile = (props) => {
- 
+  const { t } = useTranslation()
+
   return (
     <Layout>
       <div>
@@ -18,7 +20,7 @@ const Profile = (props) => {
           <AboutMe />
           <div className="col-md-4 p-5 ">
             <button type="button" className="btn btn-primary mb-2">
-              Click below and see coach's availability
+              {t("Click below and see coach's availability")}
             </button>
           </div>
         </div>
@@ -34,4 +36,4 @@ Profile.getInitialProps = async ({ query }) => {
   };
 };
 
-export default Profile;
+export default WithLocaleWrapper(Profile);
