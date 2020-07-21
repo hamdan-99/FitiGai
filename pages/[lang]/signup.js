@@ -19,7 +19,7 @@ const Signup = () => {
     e.preventDefault();
     const body = { email, password, firstName, lastName, phone };
     const response = await fetch(
-      "http://localhost:5555/v1/auth/register-local",
+      "https://fitigai-api.herokuapp.com:5555/v1/user",
       {
         method: "post",
         body: JSON.stringify(body),
@@ -43,6 +43,7 @@ const Signup = () => {
             onChange={(e) => setEmail(e.target.value)}
             name="email"
             type="email"
+            placeholder='email'
           />
         </label>
 
@@ -53,6 +54,8 @@ const Signup = () => {
             onChange={(e) => setPassword(e.target.value)}
             name="password"
             type="password"
+            placeholder='password'
+
           />
         </label>
 
@@ -63,6 +66,8 @@ const Signup = () => {
             onChange={(e) => setFirstName(e.target.value)}
             name="firstName"
             type="firstName"
+            placeholder='firstName'
+
           />
         </label>
 
@@ -73,6 +78,8 @@ const Signup = () => {
             onChange={(e) => setLastName(e.target.value)}
             name="lastName"
             type="lastName"
+            placeholder='lastName'
+
           />
         </label>
 
@@ -83,6 +90,8 @@ const Signup = () => {
             onChange={(e) => setPhone(e.target.value)}
             name="phone"
             type="phone"
+            placeholder='phone'
+
           />
         </label>
 
