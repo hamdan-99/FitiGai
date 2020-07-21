@@ -4,6 +4,7 @@ import cookie from "js-cookie";
 import Layout from "../../components/Layout";
 import WithLocaleWrapper from '../../hocs/withLocale'
 import useTranslation from '../../hooks/useTranslation'
+import fetch from "node-fetch";
 
 const Signup = () => {
   const [signupError, setSignupError] = useState("");
