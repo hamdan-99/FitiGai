@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import Features from "../../components/Features";
 import AboutMe from "../../components/AboutMe";
 import profile from "../data.js";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import WithLocaleWrapper from '../../hocs/withLocale'
 import useTranslation from '../../hooks/useTranslation'
 
