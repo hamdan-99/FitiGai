@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Router from "next/router";
-import data from "../pages/data.js";
+import data from "../utils/data";
 import useTranslation from "../hooks/useTranslation";
 import fetch from "node-fetch";
 

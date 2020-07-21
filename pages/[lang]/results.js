@@ -1,7 +1,6 @@
-import data from "../data.js";
-import profile from "../data.js";
+import data from "../../utils/data.js";
+import profile from "../../utils/data.js";
 import fetch from "node-fetch";
-
 import Card from "../../components/Cards";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +11,7 @@ import { paginate } from "../../utils/paginate";
 import Router from "next/router";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from '../../hocs/withLocale'
-import useTranslation from '../hooks/useTranslation'
+import useTranslation from '../../hooks/useTranslation'
 
 
 const useStyles = makeStyles({

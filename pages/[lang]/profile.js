@@ -3,7 +3,7 @@ import Layout from "../../components/Layout";
 import Header from "../../components/Header";
 import Features from "../../components/Features";
 import AboutMe from "../../components/AboutMe";
-import profile from "../data.js";
+import profile from "../../utils/data.js";
 import { useEffect } from "react";
 import WithLocaleWrapper from '../../hocs/withLocale'
 import useTranslation from '../../hooks/useTranslation'
