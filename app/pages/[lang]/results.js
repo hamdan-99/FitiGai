@@ -11,7 +11,7 @@ import { paginate } from "../../utils/paginate";
 import Router from "next/router";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from '../../hocs/withLocale'
-import useTranslation from '../hooks/useTranslation'
+import useTranslation from '../../hooks/useTranslation'
 
 
 const useStyles = makeStyles({
