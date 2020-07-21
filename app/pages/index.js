@@ -1,44 +1,17 @@
-import Layout from "../components/Layout";
-import Search from "../components/Search";
-// import cookie from "js-cookie";
-// import Router from "next/router";
-// import { useRouter } from "next/router";
-
- function Home(props) {
+import React from 'react'
+import Head from 'next/head'
+import { getInitialLocale } from '../translations/getInitialLocale'
 
 
-  // const router = useRouter();
-
-  // const token = [];
-  // const cookieToken = cookie.get("token");
-  // if (cookieToken) {
-  //   token.push(cookieToken);
-  // }
-  // if (cookieToken) {
-  //   cookie.remove("token");
-  //   Router.push("/");
-  // }
-  // if (!cookieToken) {
-  //   cookie.remove()
-  //   cookie.set("token", token[0], { expires: 2 });
-    
-  // //  await [localStorage.setItem("token", token[0])];
-  // }
-  
-  // console.log('Router',router.pathname)
+const Index = () => {
+  React.useEffect(() => {
+    window.location.replace(`/${getInitialLocale()}`)
+  })
   return (
-    <Layout>
-      <Search data={props} />
-    </Layout>
-  );
+    <Head>
+      <meta name="robots" content="noindex, nofollow" />
+    </Head>
+  )
 }
 
-export async function getServerSideProps() {
-  const res = await fetch("http://localhost:5555/v1/service");
-  const services = await res.json();
-  return {
-    props: { services },
-  };
-}
-
-export default Home;
+export default Index

@@ -2,9 +2,12 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import cookie from "js-cookie";
 import Router from "next/router";
+import useTranslation from '../hooks/useTranslation'
+
 const Navbar = () => {
   const cookieToken = cookie.get("token");
   const [loggedIn, setLoggedIn] = useState(!!cookieToken);
+  const { locale, t } = useTranslation()
 
   useEffect(() => {
     setLoggedIn(!!cookieToken);
@@ -38,32 +41,32 @@ const Navbar = () => {
       <div className="collapse navbar-collapse" id="navbarColor02 ">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link href="/">
+            <Link href="/[lang]" as={`/${locale}`}>
               <a className="nav-link">
-                <span className="navMenue">Home</span>
+                <span className="navMenue">{t('Home')}</span>
               </a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="/about">
+            <Link href="/[lang]/about" as={`/${locale}/about`}>
               <a className="nav-link">
-                <span className="navMenue">About</span>
+                <span className="navMenue">{t('About')}</span>
               </a>
             </Link>
           </li>
           <li className="nav-item">
-            <Link href="/contact">
+            <Link href="/[lang]/contact" as={`/${locale}/contact`}>
               <a className="nav-link">
-                <span className="navMenue">Contact</span>
+                <span className="navMenue">{t('Contact')}</span>
               </a>
             </Link>
           </li>
 
           {!loggedIn && (
             <li className="nav-item">
-              <Link href="/login">
+              <Link href="/[lang]/login" as={`/${locale}/login`}>
                 <a className="nav-link">
-                  <span className="navMenue">Login</span>
+                  <span className="navMenue">{t('Login')}</span>
                 </a>
               </Link>
             </li>
@@ -71,9 +74,9 @@ const Navbar = () => {
 
           {!loggedIn && (
             <li className="nav-item">
-              <Link href="/signup">
+              <Link href="/[lang]/signup" as={`/${locale}/signup`}>
                 <a className="nav-link">
-                  <span className="navMenue">Sign up</span>
+                  <span className="navMenue">{t('Signup')}</span>
                 </a>
               </Link>
             </li>
@@ -81,7 +84,7 @@ const Navbar = () => {
 
           {loggedIn && (
             <li className="nav-item">
-              <Link href="/">
+              <Link href="/[lang]" as={`/${locale}`}>
                 <a
                   onClick={() => {
                     cookie.remove("token");
@@ -89,7 +92,7 @@ const Navbar = () => {
                   }}
                   className="nav-link"
                 >
-                  <span className="navMenue">Logout</span>
+                  <span className="navMenue">{t('Logout')}</span>
                 </a>
               </Link>
             </li>

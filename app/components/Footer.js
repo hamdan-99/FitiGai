@@ -1,16 +1,11 @@
+import LocaleSwitcher from './LocaleSwitcher'
+
 let socialMedia = ['twitter', 'facebook', 'instagram', 'linkedin'];
-let languages = ['TUR', 'ENG', 'DUT', 'FRA', 'ARA'];
 
 const Footer = () => (
   <footer className='footer'>
     <div className='languageSelection'>
-      <select name='languages' className='langugaes footerOptions'>
-        {languages.map((item, key) => (
-          <option className="lanLigst" key={key} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
+      <LocaleSwitcher />
     </div>
     <div className='socialMediaLinks'>
       {socialMedia.map((item, key) => (

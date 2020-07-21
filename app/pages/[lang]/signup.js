@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
+import WithLocaleWrapper from '../../hocs/withLocale'
+import useTranslation from '../../hooks/useTranslation'
+
 const Signup = () => {
   const [signupError, setSignupError] = useState("");
   const [email, setEmail] = useState("");
@@ -10,6 +13,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const { t } = useTranslation()
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,9 +35,9 @@ const Signup = () => {
   return (
     <Layout>
       <form onSubmit={handleSubmit}>
-        <p>Sign Up</p>
+        <p>{t('Signup')}</p>
         <label htmlFor="email">
-          email
+          {t('Email')}
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -43,7 +47,7 @@ const Signup = () => {
         </label>
 
         <label htmlFor="password">
-          password
+          {t('Password')}
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -53,7 +57,7 @@ const Signup = () => {
         </label>
 
         <label htmlFor="firstName">
-          firstName
+          {t('FirstName')}
           <input
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -63,7 +67,7 @@ const Signup = () => {
         </label>
 
         <label htmlFor="lastName">
-          lastName
+          {t('LastName')}
           <input
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -73,7 +77,7 @@ const Signup = () => {
         </label>
 
         <label htmlFor="phone">
-          phone
+          {t('Phone')}
           <input
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -82,11 +86,11 @@ const Signup = () => {
           />
         </label>
 
-        <button type="submit">Sign up</button>
+        <button type="submit">{t('Signup')}</button>
         {signupError && <p style={{ color: "red" }}>{signupError}</p>}
       </form>
     </Layout>
   );
 };
 
-export default Signup;
+export default WithLocaleWrapper(Signup);
