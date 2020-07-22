@@ -12,6 +12,7 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
+import AdvancedSearch from "../../components/advancedSearch";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
@@ -31,10 +32,8 @@ const Results = (props) => {
   let [pagiress, SetPagiress] = useState(
     paginate(props.data.ress, currentPage, pageSize)
   );
-  let [pagiData, SetPagiData] = useState(
-    
-  );
-console.log(' propsprops',props )
+  let [pagiData, SetPagiData] = useState();
+  console.log(" propsprops", props);
   const router = useRouter();
   const { locale, t } = useTranslation();
 
@@ -71,6 +70,7 @@ console.log(' propsprops',props )
     <div>
       {pagiData.length > 0 && (
         <Layout>
+          <AdvancedSearch></AdvancedSearch>
           <div>
             <Grid className={classes.gridContainer}>
               <Grid>
@@ -78,7 +78,12 @@ console.log(' propsprops',props )
                   {pagiData.map((card) =>
                     props.data.coaches.map((coach) =>
                       card.owner === coach._id ? (
-                        <Grid onClick={(e) => handleClick(coach, card)} key={card._id} item xs={3}>
+                        <Grid
+                          onClick={(e) => handleClick(coach, card)}
+                          key={card._id}
+                          item
+                          xs={3}
+                        >
                           <Card
                             className={classes.paper}
                             card={card}
@@ -157,26 +162,25 @@ Results.getInitialProps = async ({ query }) => {
   const services = await response.json();
   // console.log("services", services ,'\n','coaches',coaches);
   const ress = [];
-  const results = services.filter((i,e) => {
-    console.log('querys',i)
+  const results = services.filter((i, e) => {
+    console.log("querys", i);
     if (
       query.title === i.title.toLowerCase() &&
       query.location === i.location.toLowerCase()
     ) {
-      
       return i;
-    // } else if (query.title !== i.title.toLowerCase()) {
-    //   return (query.title = undefined);
-    // } else if (query.title === undefined) {
-    //   // return ress.push(services[0]);
-    //   if (e < 32) {
-    //     return i;
-    //   }
+      // } else if (query.title !== i.title.toLowerCase()) {
+      //   return (query.title = undefined);
+      // } else if (query.title === undefined) {
+      //   // return ress.push(services[0]);
+      //   if (e < 32) {
+      //     return i;
+      //   }
     }
   });
 
   return {
-    data: { coaches, ress, results , query },
+    data: { coaches, ress, results, query },
   };
 };
 
