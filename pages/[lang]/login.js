@@ -4,6 +4,9 @@ import cookie from "js-cookie";
 import Layout from "../../components/Layout";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { validateEmail, validatePassword } from '../../utils/validation'
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
@@ -17,40 +20,51 @@ const Login = (props) => {
     e.preventDefault();
     //call api
     const body = { email, password };
-
-    fetch(`${urlEndpoint}auth/login-local`, {
-      method: "post",
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res && res.token) {
-          //set cookie
-          cookie.set("token", res.token, { expires: 2 });
-          localStorage.setItem("token", res.token);
-          // props.setToken(res.token)
-          Router.push("/");
-        }
-      });
+    if (!validateEmail(email))
+      console.log('Email is Invalid')
+    else if (!validatePassword(password))
+      console.log('Password is Invalid, must be at least 6 characters')
+    else {
+      fetch(`${urlEndpoint}auth/login-local`, {
+        method: "post",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res && res.token) {
+            //set cookie
+            cookie.set("token", res.token, { expires: 2 });
+            localStorage.setItem("token", res.token);
+            // props.setToken(res.token)
+            Router.push("/");
+          }
+        });
+    }
   }
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
-        <p>{t("Login")}</p>
-        <input
+      <form style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '60%', alignItems: 'center', justifyContent: 'space-evenly' }}>
+        <p>{t('Login')}</p>
+        <TextField
+          id="outlined-required"
           name="email"
           type="email"
+          variant="outlined"
+          placeholder={t('Email')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <input
+        <TextField
+          id="outlined-required"
           name="password"
           type="password"
+          variant="outlined"
+          placeholder={t("Password")}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <input type="submit" value={t("Submit")} />
+        <Button variant="contained" value={"Login"} onClick={(e) => handleSubmit(e)} >{t("Login")}</Button>
         {loginError && <p style={{ color: "red" }}>{loginError}</p>}
       </form>
     </Layout>
