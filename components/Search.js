@@ -26,7 +26,10 @@ export default function Search() {
     } else {
       router.push({
         pathname: `/${locale}/results`,
-        query: {title: title.toLowerCase().trim(), location: location.toLowerCase().trim() },
+        query: {
+          title: title.trim().toLowerCase(),
+          location: location.trim().toLowerCase(),
+        },
       });
     }
   };
@@ -50,5 +53,3 @@ export default function Search() {
     </div>
   );
 }
-
-

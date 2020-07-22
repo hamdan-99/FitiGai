@@ -1,4 +1,4 @@
-// import data from "../../utils/data.js";
+import profile from "../../utils/data.js";
 import Card from "../../components/Cards";
 import { paginate } from "../../utils/paginate";
 import { Grid } from "@material-ui/core";
@@ -30,8 +30,8 @@ const Results = ({ results, services, coaches, query }) => {
     paginate(results, currentPage, pageSize)
   );
   console.log(" propsprops", pagiData);
-  if (pagiData.length === 0) {
-    SetCount(service.length);
+  if (count === 0) {
+    SetCount(32);
     SetPagiData(paginate(service, currentPage, pageSize));
   }
 
@@ -69,25 +69,31 @@ const Results = ({ results, services, coaches, query }) => {
     <div>
       <Layout>
         <div>
-          <Grid container justify="center" spacing={2} className={classes.gridContainer}>
-                {pagiData.map((card) =>
-                  coaches.map((coach) =>
-                    card.owner === coach._id ? (
-                      <Grid
-                        onClick={(e) => handleClick(coach, card)}
-                        key={card._id}
-                        item xs={3}
-                         >
-                        <Card
-                          className={classes.paper}
-                          card={card}
-                          coachName={coach}
-                          key={card._id}
-                        />
-                      </Grid>
-                    ) : null
-                  )
-                )}
+          <Grid
+            container
+            justify="center"
+            spacing={2}
+            className={classes.gridContainer}
+          >
+            {pagiData.map((card) =>
+              coaches.map((coach) =>
+                card.owner === coach._id ? (
+                  <Grid
+                    onClick={(e) => handleClick(coach, card)}
+                    key={card._id}
+                    item
+                    xs={3}
+                  >
+                    <Card
+                      className={classes.paper}
+                      card={card}
+                      coachName={coach}
+                      key={card._id}
+                    />
+                  </Grid>
+                ) : null
+              )
+            )}
           </Grid>
         </div>
         <div className="pagination">
@@ -112,8 +118,8 @@ Results.getInitialProps = async ({ query }) => {
   // console.log("services", services ,'\n','coaches',coaches);
   const results = services.filter((i, e) => {
     if (
-      query.title === i.title.toLowerCase() &&
-      query.location === i.location.toLowerCase()
+      query.title === i.title.trim().toLowerCase() &&
+      query.location === i.location.trim().toLowerCase()
     ) {
       return i;
       // } else if (query.title !== i.title.toLowerCase()) {

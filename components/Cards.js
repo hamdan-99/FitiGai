@@ -50,7 +50,7 @@ const Cards = (props) => {
                             <h4 className="card-head">{t('About')}</h4>
                             <p className="card-text">
                               <span className="backText">
-                                {t(props.card.description)}
+                                {props.card.description}
                               </span>
                             </p>
                           </div>
