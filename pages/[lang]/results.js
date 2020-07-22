@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import WithLocaleWrapper from '../../hocs/withLocale'
 import useTranslation from '../../hooks/useTranslation'
 
+const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`
 
 const useStyles = makeStyles({
   gridContainer: {
