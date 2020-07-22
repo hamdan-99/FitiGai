@@ -19,23 +19,15 @@ export default function Search(props) {
   const handleClick = (event) => {
     event.preventDefault();
 
-    services.filter((i) => {
-      if (
-        i.title.toLowerCase() === title.toLowerCase() &&
-        i.location.toLowerCase() === location.toLowerCase()
-      ) {
-        return [data.push(i), (exTitle = ""), (exLocation = "")];
-      }
-    });
-
+    
     if (title.length === 0) {
       alert(t("FillAlert"));
       router.push({
-          pathname: "/${locale}",
+          pathname: `/${locale}`,
       });
     } else {
       router.push({
-          pathname: "/${locale}/results",
+          pathname: `/${locale}/results`,
         query: { exTitle, exLocation },
       });
     }
