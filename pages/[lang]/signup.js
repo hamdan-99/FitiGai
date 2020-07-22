@@ -20,7 +20,7 @@ const Signup = () => {
     e.preventDefault();
     const body = { email, password, firstName, lastName, phone };
     const response = await fetch(
-      "https://fitigai-api.herokuapp.com:5555/v1/user",
+      "https://fitigai-api.herokuapp.com/v1/user",
       {
         method: "post",
         body: JSON.stringify(body),
