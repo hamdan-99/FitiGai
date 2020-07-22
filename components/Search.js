@@ -26,7 +26,7 @@ export default function Search() {
     } else {
       router.push({
         pathname: `/${locale}/results`,
-        query: { title, location: location.toLowerCase() },
+        query: {title: title.toLowerCase(), location: location.toLowerCase() },
       });
     }
   };

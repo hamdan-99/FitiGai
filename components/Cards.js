@@ -5,10 +5,9 @@ import useTranslation from '../hooks/useTranslation'
 
 const Cards = (props) => {
   const { t } = useTranslation()
-console.log('props 0',props)
   return (
     <div>
-      {props.card && (
+     
         <section id="team" className="pb-5">
           <div className="container">
             <div className="row">
@@ -68,9 +67,6 @@ console.log('props 0',props)
             </div>
           </div>
         </section>
-      )}
-      {/* ******************************************************************* */}
-
     </div>
   );
 };
