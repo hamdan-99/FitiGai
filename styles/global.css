@@ -6,6 +6,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  background-image: url(https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2F1354200.jpg?v=1595025968590);
+
   background-size: 100% 100%;
   background-repeat: no-repeat;
   align-items: center;
@@ -21,7 +23,6 @@ body {
   }
   
   75% {
-    background-image: url(https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2F1354200.jpg?v=1595025968590);
   }
  
 } */

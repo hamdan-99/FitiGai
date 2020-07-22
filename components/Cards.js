@@ -5,7 +5,7 @@ import useTranslation from '../hooks/useTranslation'
 
 const Cards = (props) => {
   const { t } = useTranslation()
-
+console.log('props 0',props)
   return (
     <div>
       {props.card && (
@@ -28,9 +28,9 @@ const Cards = (props) => {
                           />
                           <div className="coachInfo">
                             <p className="card-name">{`${props.coachName.firstName} ${props.coachName.lastName}`}</p>
-                            <h5 className="card-title">{t(props.card.title)}</h5>
+                            <h5 className="card-title">{props.card.title}</h5>
                             <p className="card-location">
-                              {t(props.card.location)}
+                              {props.card.location}
                             </p>
                             <p className="card-lang">
                               {props.coachName.lang.slice(0, 2).toUpperCase()}
@@ -91,9 +91,9 @@ const Cards = (props) => {
                           />
                           <div className="coachInfo">
                             <p className="card-name">{`${props.coachName.firstName} ${props.coachName.lastName}`}</p>
-                            <h5 className="card-title">{t(props.all.title)}</h5>
+                            <h5 className="card-title">{(props.all.title)}</h5>
                             <p className="card-location">
-                              {t(props.all.location)}
+                              {(props.all.location)}
                             </p>
                             <p className="card-lang">
                               {props.coachName.lang.slice(0, 2).toUpperCase()}
@@ -114,7 +114,7 @@ const Cards = (props) => {
                             <h4 className="card-head">{t('About')}</h4>
                             <p className="card-text">
                               <span className="backText">
-                                {t(props.all.description)}
+                                {(props.all.description)}
                               </span>
                             </p>
                           </div>

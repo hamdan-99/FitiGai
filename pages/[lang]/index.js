@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <Layout>
-      <Search/>
+      <Search />
     </Layout>
   );
 }

@@ -6,6 +6,9 @@ import data from "../utils/data";
 import useTranslation from "../hooks/useTranslation";
 import fetch from "node-fetch";
 
+const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`
+
+
 export default function Search(props) {
   let [location, setLocation] = useState("");
   let [title, setTitile] = useState("");
@@ -15,19 +18,18 @@ export default function Search(props) {
 
   let exTitle = title;
   let exLocation = location;
-  console.log('ser',props)
+  console.log("ser", props);
   const handleClick = (event) => {
     event.preventDefault();
 
-    
     if (title.length === 0) {
       alert(t("FillAlert"));
       router.push({
-          pathname: `/${locale}`,
+        pathname: `/${locale}`,
       });
     } else {
       router.push({
-          pathname: `/${locale}/results`,
+        pathname: `/${locale}/results`,
         query: { exTitle, exLocation },
       });
     }
@@ -53,10 +55,10 @@ export default function Search(props) {
   );
 }
 
-Search.getInitialProps = async () => {
-  const response = await fetch("http://localhost:5555/v1/service/");
+export async function getStaticProps() {
+  const response = await fetch(`${urlEndpoint}service/`);
   const services = await response.json();
-  console.log('services',services)
+  console.log("services", services);
 
   return {
     props: { services },

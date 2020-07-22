@@ -148,10 +148,11 @@ const Results = (props) => {
 };
 
 Results.getInitialProps = async ({ query }) => {
-  const res = await fetch("http://localhost:5555/v1/coach/coaches");
+  const res = await fetch(`${urlEndpoint}coach/coaches`);
   const coaches = await res.json();
-  const response = await fetch("http://localhost:5555/v1/service/");
+  const response = await fetch(`${urlEndpoint}searches`);
   const services = await response.json();
+  console.log('services',services)
   const ress = [];
   if (query.exTitle === undefined) {
     return ress.push(services[0]);
