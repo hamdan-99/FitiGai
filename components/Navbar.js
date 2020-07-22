@@ -47,20 +47,6 @@ const Navbar = () => {
               </a>
             </Link>
           </li>
-          <li className="nav-item">
-            <Link href="/[lang]/about" as={`/${locale}/about`}>
-              <a className="nav-link">
-                <span className="navMenue">{t('About')}</span>
-              </a>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link href="/[lang]/contact" as={`/${locale}/contact`}>
-              <a className="nav-link">
-                <span className="navMenue">{t('Contact')}</span>
-              </a>
-            </Link>
-          </li>
 
           {!loggedIn && (
             <li className="nav-item">
