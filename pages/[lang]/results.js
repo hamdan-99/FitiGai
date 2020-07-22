@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
+import AdvancedSearch from "../../components/advancedSearch";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
@@ -33,6 +34,7 @@ const Results = ({ results, services, coaches, query }) => {
     SetCount(service.length);
     SetPagiData(paginate(service, currentPage, pageSize));
   }
+
   const router = useRouter();
   const { locale, t } = useTranslation();
 
