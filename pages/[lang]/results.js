@@ -1,4 +1,4 @@
-import data from "../../utils/data.js";
+// import data from "../../utils/data.js";
 import profile from "../../utils/data.js";
 import fetch from "node-fetch";
 import Card from "../../components/Cards";
@@ -10,10 +10,10 @@ import { useState } from "react";
 import { paginate } from "../../utils/paginate";
 import Router from "next/router";
 import { useRouter } from "next/router";
-import WithLocaleWrapper from '../../hocs/withLocale'
-import useTranslation from '../../hooks/useTranslation'
+import WithLocaleWrapper from "../../hocs/withLocale";
+import useTranslation from "../../hooks/useTranslation";
 
-const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`
+const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
 const useStyles = makeStyles({
   gridContainer: {
@@ -24,23 +24,26 @@ const useStyles = makeStyles({
 });
 
 const Results = (props) => {
-  let [count, SetCount] = useState(data.length);
-  let [counts, SetCounts] = useState(props.props.ress.length);
+  let [count, SetCount] = useState(props.data.results.length);
+  let [counts, SetCounts] = useState(props.data.ress.length);
   let [pageSize, SetPageSize] = useState(12);
   let [currentPage, SetCurrentPage] = useState(1);
-  let [pagiress, SetPagiress] = useState();
-  let [pagiData, SetPagiData] = useState();
-
+  let [pagiress, SetPagiress] = useState(
+    paginate(props.data.ress, currentPage, pageSize)
+  );
+  let [pagiData, SetPagiData] = useState(
+    
+  );
+console.log(' propsprops',props )
   const router = useRouter();
-  const { locale, t } = useTranslation()
-
+  const { locale, t } = useTranslation();
 
   const classes = useStyles();
   const handlePageChange = (page) => {
     SetCurrentPage(page);
   };
-  pagiress = paginate(props.props.ress, currentPage, pageSize);
-  pagiData = paginate(data, currentPage, pageSize);
+  // pagiress = ;
+  pagiData = paginate(props.data.results, currentPage, pageSize);
 
   const handleClick = (coachID, serviceID) => {
     console.log("coachID", coachID.lang, "serviceID", serviceID);
@@ -73,9 +76,9 @@ const Results = (props) => {
               <Grid>
                 <Grid container justify="center" spacing={4}>
                   {pagiData.map((card) =>
-                    props.props.coaches.map((coach) =>
+                    props.data.coaches.map((coach) =>
                       card.owner === coach._id ? (
-                        <Grid onClick={handleClick} key={card._id} item xs={3}>
+                        <Grid onClick={(e) => handleClick(coach, card)} key={card._id} item xs={3}>
                           <Card
                             className={classes.paper}
                             card={card}
@@ -102,7 +105,7 @@ const Results = (props) => {
         </Layout>
       )}
 
-      {/* ******************************************************************* */}
+      {/* *******************************************************************
       {pagiress.length > 0 && (
         <Layout>
           <div>
@@ -142,7 +145,7 @@ const Results = (props) => {
             />
           </div>
         </Layout>
-      )}
+      )} */}
     </div>
   );
 };
@@ -152,22 +155,28 @@ Results.getInitialProps = async ({ query }) => {
   const coaches = await res.json();
   const response = await fetch(`${urlEndpoint}searches`);
   const services = await response.json();
-  console.log('services',services)
+  // console.log("services", services ,'\n','coaches',coaches);
   const ress = [];
-  if (query.exTitle === undefined) {
-    return ress.push(services[0]);
-  }
-  services.filter((i, e) => {
-    if (query.exTitle !== "") {
-      if (query.exTitle.toLowerCase() !== i.title.toLowerCase()) {
-        if (e < 32) {
-          return ress.push(i);
-        }
-      }
+  const results = services.filter((i,e) => {
+    console.log('querys',i)
+    if (
+      query.title === i.title.toLowerCase() &&
+      query.location === i.location.toLowerCase()
+    ) {
+      
+      return i;
+    // } else if (query.title !== i.title.toLowerCase()) {
+    //   return (query.title = undefined);
+    // } else if (query.title === undefined) {
+    //   // return ress.push(services[0]);
+    //   if (e < 32) {
+    //     return i;
+    //   }
     }
   });
+
   return {
-    props: { coaches, ress },
+    data: { coaches, ress, results , query },
   };
 };
 
