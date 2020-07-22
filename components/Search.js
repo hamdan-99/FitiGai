@@ -31,13 +31,11 @@ export default function Search(props) {
     if (title.length === 0) {
       alert(t("FillAlert"));
       router.push({
-        pathname: "/[lang]",
-        asPath: `/${locale}`,
+          pathname: "/${locale}",
       });
     } else {
       router.push({
-        pathname: "/[lang]/results",
-        asPath: `/${locale}/results`,
+          pathname: "/${locale}/results",
         query: { exTitle, exLocation },
       });
     }
