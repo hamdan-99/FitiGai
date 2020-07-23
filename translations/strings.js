@@ -9,7 +9,25 @@ const strings = {
     Logout: 'Log Out',
     Sport: 'Sport',
     Location: 'Location',
-    FillAlert: 'Please fill Sport title & Location!'
+    FillAlert: 'Please fill Sport title & Location!',
+    Age: 'Age',
+    Language: 'Language',
+    Gender: 'Gender',
+    Availability: 'Availability',
+    Price: 'Price',
+    Experience: 'Experience',
+    Rate: 'Rate',
+    AboutMe: 'About Me',
+    FirstName: 'First Name',
+    LastName: 'Last Name',
+    Email: 'Email',
+    Password: 'Password',
+    Phone: 'Phone',
+    English: 'English',
+    French: 'French',
+    Dutch: 'Dutch',
+    ContactMe: 'Contact Me'
+
   },
   fr: {
     Home: 'FR Home',
@@ -20,7 +38,26 @@ const strings = {
     Logout: 'FR Log Out',
     Sport: 'FR Sport',
     Location: 'FR Location',
-    FillAlert: 'FR Sivuple!'
+    FillAlert: 'FR Sivuple!',
+    Age: 'FR Age',
+    Language: 'FR Language',
+    Gender: 'FR Gender',
+    Availability: 'FR Availability',
+    Price: 'FR Price',
+    Experience: 'FR Experience',
+    Rate: 'FR Rate',
+    AboutMe: 'Fr About Me',
+    FirstName: 'FR First Name',
+    LastName: 'FR Last Name',
+    Email: 'FR Email',
+    Password: 'FR Password',
+    Phone: 'FR Phone',
+    English: 'Angle',
+    French: 'Francais',
+    Dutch: 'FR Dutch',
+    ContactMe: 'FR Contact Me'
+
+
   },
   nl: {
     Home: 'NL Home',
@@ -31,7 +68,24 @@ const strings = {
     Logout: 'NL Log Out',
     Sport: 'NL Sport',
     Location: 'NL Location',
-    FillAlert: 'NL Alstublieft vul sport en location in'
+    FillAlert: 'NL Alstublieft vul sport en location in',
+    Age: 'NL Age',
+    Language: 'NL Language',
+    Gender: 'NL Gender',
+    Availability: 'NL Availability',
+    Price: 'NL Price',
+    Experience: 'NL Experience',
+    Rate: 'NL Rate',
+    AboutMe: 'NL About Me',
+    FirstName: 'NL First Name',
+    LastName: 'NL Last Name',
+    Email: 'NL Email',
+    Password: 'NL Password',
+    Phone: 'NL Phone',
+    English: 'Engels',
+    French: 'Frans',
+    Dutch: 'Nederlands',
+    ContactMe: 'NL Contact Me'
   }
 }
 
