@@ -1,39 +1,129 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import Layout from "../../components/Layout";
-import Header from "../../components/Header";
-import Features from "../../components/Features";
-import AboutMe from "../../components/AboutMe";
-import profile from "../../utils/data.js";
-import { useEffect } from "react";
-import WithLocaleWrapper from '../../hocs/withLocale'
-import useTranslation from '../../hooks/useTranslation'
+import WithLocaleWrapper from "../../hocs/withLocale";
+import useTranslation from "../../hooks/useTranslation";
+import fetch from "isomorphic-unfetch";
+import { useRouter } from "next/router";
 
-const Profile = (props) => {
-  const { t } = useTranslation()
+const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
-  return (
-    <Layout>
-      <div>
-        <Header />
-        <div className="row mx-auto mt-5" style={{ maxWidth: 1000 }}>
-          <Features />
-          <AboutMe />
-          <div className="col-md-4 p-5 ">
-            <button type="button" className="btn btn-primary mb-2">
-              {t("Click below and see coach's availability")}
-            </button>
+const coachServices = [];
+class Profile extends Component {
+  state = {
+    services: [],
+    coachServices: [],
+   
+    
+  }; 
+
+
+  componentDidMount() {
+    fetch(`${urlEndpoint}searches`)
+      .then((response) => response.json())
+      .then((data) => this.setState({ services: data }))
+      .then(() => {
+        this.state.services.filter((i, e) => {
+          if (this.props.props.owner === i.owner) {
+            coachServices.push(i);
+            return this.setState({ coachServices: i });
+          } else {
+            return null;
+          }
+        });
+      });
+  }
+
+  handleClick = (e) => {
+    console.log("clicked");
+  };
+  render() {
+    const { props } = this.props;
+    return (
+      <Layout>
+        <div>
+          <div className="Container">
+            <div className="leftSide">
+              <img
+                src="https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2Fdefault-user.png?v=1587762169218"
+                alt="My name"
+                id="pics"
+              />
+              <h5 id="coach">{`${props.title}`} Coach</h5>
+              <div className="infoLeftSide">
+                <h5>
+                  <i
+                    id="leftIcon"
+                    className="fa fa-user"
+                    aria-hidden="true"
+                  ></i>
+                  <span className="leftInfo">{`${props.firstName} ${props.lastName}`}</span>
+                </h5>
+                <h5>
+                  <i
+                    id="leftIcon"
+                    className="fa fa-map-marker"
+                    aria-hidden="true"
+                  ></i>
+                  <span className="leftInfo">{`${props.location}`}</span>
+                </h5>
+                <h5>
+                  <i
+                    id="leftIcon"
+                    className="fa fa-language"
+                    aria-hidden="true"
+                  ></i>
+                  <span className="leftInfo">{`${props.lang.toUpperCase()}`}</span>
+                </h5>
+                <h5>
+                  <i
+                    id="leftIcon"
+                    className="fa fa-money"
+                    aria-hidden="true"
+                  ></i>
+                  <span className="leftInfo">{`${props.price}/H`}</span>
+                </h5>
+              </div>
+            </div>
+
+            <div className="middle">
+              <div className="up">
+                <h5>
+                  <i className="fa fa-info-circle" aria-hidden="true"></i>
+                  <br />
+                  {`${props.description}`}
+                </h5>
+              </div>
+
+              <div className="down">
+                  <button onClick={this.handleClick}>Contact Me</button>
+              </div>
+            </div>
+            <div className="rightSide">
+              <h5>{`${props.firstName} ${props.lastName}`} Services</h5>
+              {(coachServices.length > 0 && (
+                <ul>
+                  {coachServices.map((i) => (
+                    <li key={i.title}>{i.title}</li>
+                  ))}
+                </ul>
+              )) ||
+                props.title}
+            </div>
           </div>
         </div>
-      </div>
-    </Layout>
-  );
-};
+      </Layout>
+    );
+  }
+}
 
 Profile.getInitialProps = async ({ query }) => {
-  console.log("ZSDERGTERTGER", query);
   return {
     props: query,
   };
 };
-
 export default WithLocaleWrapper(Profile);
+/* <style jsx>
+        {`
+        
+        `}
+      </style> */

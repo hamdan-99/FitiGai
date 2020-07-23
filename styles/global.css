@@ -16,16 +16,16 @@ body {
 @keyframes animate {
   0%,
   100% {
-    background-image: url('./backgroundImages/basket-min.jpeg');
+    background-image: url("./backgroundImages/basket-min.jpeg");
   }
   25% {
-    background-image: url('./backgroundImages/biking-min.jpeg');
+    background-image: url("./backgroundImages/biking-min.jpeg");
   }
   50% {
-    background-image: url('./backgroundImages/fitness-min.jpeg');
+    background-image: url("./backgroundImages/fitness-min.jpeg");
   }
   75% {
-    background-image: url('./backgroundImages/volleygirls-min.jpeg');
+    background-image: url("./backgroundImages/volleygirls-min.jpeg");
   }
 }
 .page {
@@ -40,9 +40,9 @@ body {
   border: solid rgb(38, 255, 67) 1px;
   box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
 }
-@import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap");
 .logoName {
-  font-family: 'Faster One', cursive;
+  font-family: "Faster One", cursive;
   color: red;
   position: relative;
   top: -4px;
@@ -65,7 +65,7 @@ body {
   color: rgb(0, 0, 0);
 }
 
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
 section {
   position: relative;
@@ -316,4 +316,80 @@ p {
   text-align: center;
   margin-left: 260px;
   margin-top: 20px;
+}
+
+.Container {
+  position: fixed;
+  padding: 20px;
+  margin: 0px;
+  top: 120px;
+}
+.leftSide {
+  position: fixed;
+  background-color: red;
+  width: 300px;
+  height: 450px;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: left;
+  left: 100px;
+}
+#coach {
+  position: relative;
+  top: 195px;
+  text-align: center;
+
+}
+#pics {
+  position: absolute;
+  top: 10px;
+  left: 55px;
+  height: 200px;
+  width: 200px;
+}
+.infoLeftSide {
+  position: relative;
+  top: 210px;
+  left: 50px;
+}
+
+.up {
+  position: fixed;
+  left: 480px;
+  width: 400px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: red;
+}
+.down {
+  position: fixed;
+  left: 480px;
+  top: 380px;
+  width: 400px;
+  height: 200px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: red;
+}
+
+.leftInfo {
+  position: relative;
+  left: 10px;
+  text-align: left;
+}
+#leftIcon {
+  position: relative;
+  left: -30px;
+  text-align: left;
+}
+.rightSide {
+  position: fixed;
+  left: 960px;
+  background-color: red;
+  width: 300px;
+  height: 450px;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: left;
 }
