@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../../components/Layout";
 import Pagination from "../../components/pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Results = ({ results, services, coaches, query }) => {
+const Results = ({ results, services, coaches }) => {
   let [service, SetService] = useState(services);
   let [count, SetCount] = useState(results.length);
   let [pageSize, SetPageSize] = useState(12);
@@ -30,14 +30,17 @@ const Results = ({ results, services, coaches, query }) => {
     paginate(results, currentPage, pageSize)
   );
   console.log(" propsprops", pagiData);
-  if (count === 0) {
-    SetCount(32);
-    SetPagiData(paginate(service, currentPage, pageSize));
-  }
+
+  useEffect(() => {
+    if (count === 0) {
+      SetCount(32);
+      SetPagiData(paginate(service, currentPage, pageSize));
+    }
+  }, [currentPage]);
 
   const router = useRouter();
   const { locale, t } = useTranslation();
-
+  console.log("pagiData", pagiData);
   const classes = useStyles();
   const handlePageChange = (page) => {
     SetCurrentPage(page);
@@ -122,13 +125,6 @@ Results.getInitialProps = async ({ query }) => {
       query.location === i.location.trim().toLowerCase()
     ) {
       return i;
-      // } else if (query.title !== i.title.toLowerCase()) {
-      //   return (query.title = undefined);
-      // } else if (query.title === undefined) {
-      //   // return ress.push(services[0]);
-      //   if (e < 32) {
-      //     return i;
-      //   }
     } else {
       return null;
     }
