@@ -6,42 +6,32 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
-  background-image: url(https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2F1354200.jpg?v=1595025968590);
-
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  align-items: center;
-  justify-content: center;
-  animation: animate 16s ease-in-out infinite;
 }
 
-/* 
+.searchPage {
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: animate 16s ease-in-out infinite;
+}
 @keyframes animate {
   0%,
   100% {
-    background-image: url('./backgroundImages/jeremy-bishop-_CFv3bntQlQ-unsplash.jpg');
+    background-image: url('./backgroundImages/basket-min.jpeg');
   }
-  
+  25% {
+    background-image: url('./backgroundImages/biking-min.jpeg');
+  }
+  50% {
+    background-image: url('./backgroundImages/fitness-min.jpeg');
+  }
   75% {
+    background-image: url('./backgroundImages/volleygirls-min.jpeg');
   }
- 
-} */
-
+}
 .page {
-  display: grid;
   min-height: 100vh;
-  grid-template-rows: 100px auto 60px;
-  
 }
 
-.navbar {
-  background-color: red;
-  position: relative;
-  top: 0;
-  height: 60px;
-  width: 100%;
-  opacity: 0.9;
-}
 .logo {
   border: solid rgb(255, 255, 255) 1px;
   background-color: rgb(38, 255, 67);
@@ -50,9 +40,9 @@ body {
   border: solid rgb(38, 255, 67) 1px;
   box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
 }
-@import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap');
 .logoName {
-  font-family: "Faster One", cursive;
+  font-family: 'Faster One', cursive;
   color: red;
   position: relative;
   top: -4px;
@@ -60,120 +50,26 @@ body {
 #fit {
   color: rgb(45, 250, 26);
 }
-@import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&family=Special+Elite&display=swap");
-.nav-link {
-  font-family: "Special Elite", cursive;
-}
+
 .navMenue {
   color: rgb(181, 255, 9);
+  margin-right: 20px;
 }
-.navMenue:hover{
+.navMenue:hover {
   color: rgb(251, 252, 250);
   background-color: rgba(67, 184, 0, 0.26);
-  border-radius: 15px;
-  
-}
-.footer {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(36, 36, 36);
-  height: 35px;
-  width: 100%;
-  bottom: 0px;
-  opacity: 0.7;
 }
 
-li {
-  list-style: none;
-}
-
-.socialMediaLinks {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.socialMediaIcons {
-  height: 25px;
-  width: 25px;
-  filter: invert(1);
-}
-
-.footerOptions {
-  margin: 10px;
-  border-radius: 15px;
-  background-color: rgba(0, 128, 128, 0.185);
-  color: white;
-}
 .lanLigst {
   background-color: rgba(8, 255, 62, 0.185);
   color: rgb(0, 0, 0);
 }
-.searchContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 280px;
-  left: 300px;
-  opacity: 0.75;
-}
-.searchContainer:hover {
-  opacity: 0.95;
-}
-.searchSport {
-  border-radius: 10px;
-}
 
-.searchtitle {
-  border: 0;
-  border-right: solid rgba(128, 128, 128, 0.356) 1px;
-  height: 3rem;
-  padding-left: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  border-radius: 10px 0 0 10px;
-  width: 350px;
-}
-.searchLocation {
-  border: 0;
-  height: 3rem;
-  padding-left: 5px;
-  padding-top: 0;
-  padding-bottom: 0;
-  width: 350px;
-}
-input:focus,
-button:focus {
-  outline: none;
-}
-
-.searchButton {
-  height: 3rem;
-  width: 3rem;
-  border: none;
-  border-radius: 0 10px 10px 0;
-}
-.searchButton:hover {
-  background-color: rgb(208, 150, 250);
-}
-.searchIcon {
-  height: 25px;
-  width: 100%;
-  position: relative;
-  top: -3px;
-}
-
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 section {
   position: relative;
   text-align: justify;
-
 }
 
 section .section-title {
@@ -182,11 +78,7 @@ section .section-title {
   margin-bottom: 20px;
   text-transform: uppercase;
 }
-.container {
-  position: relative;
-  top: 10px;
-  float: left;
-}
+
 .image-flip:hover .backside,
 .image-flip.hover .backside {
   -webkit-transform: rotateY(0deg);
@@ -289,7 +181,6 @@ section .section-title {
 
 .btn-neon:hover {
   box-shadow: 0 0 5px #fcc57e, 0 0 20px #fcc57e, 0 0 44px #fcc57e;
-  /* background-color: #ff6f61; */
 }
 
 .btn-neon:hover polyline {
@@ -366,7 +257,7 @@ section .section-title {
   bottom: 33px;
   left: 23px;
 }
-.card-price{
+.card-price {
   color: rgb(255, 255, 255);
   background-color: rgba(60, 61, 60, 0.466);
   width: 80px;
@@ -404,16 +295,15 @@ section .section-title {
   background-color: #a19b9b9c;
   border-radius: 20px;
   font-weight: bolder;
- width: 95%;
+  width: 95%;
 }
-.backText{
+.backText {
   text-overflow: ellipsis;
   overflow: hidden;
 }
 p {
-
   /* BOTH of the following are required for text-overflow */
-  
+
   overflow: hidden;
 }
 #pic {
@@ -421,10 +311,9 @@ p {
   top: 15px;
   right: 5px;
 }
-.pagination{
+.pagination {
   position: justify;
   text-align: center;
-margin-left: 260px;
+  margin-left: 260px;
   margin-top: 20px;
-
 }

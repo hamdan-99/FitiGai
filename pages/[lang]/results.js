@@ -1,4 +1,3 @@
-import profile from "../../utils/data.js";
 import Card from "../../components/Cards";
 import { paginate } from "../../utils/paginate";
 import { Grid } from "@material-ui/core";
@@ -21,35 +20,34 @@ const useStyles = makeStyles({
   },
 });
 
-const Results = ({ results, services, coaches }) => {
-  let [service, SetService] = useState(services);
-  let [count, SetCount] = useState(results.length);
-  let [pageSize, SetPageSize] = useState(12);
-  let [currentPage, SetCurrentPage] = useState(1);
-  let [pagiData, SetPagiData] = useState(
-    paginate(results, currentPage, pageSize)
-  );
-  console.log(" propsprops", pagiData);
-
-  useEffect(() => {
-    if (count === 0) {
-      SetCount(32);
-      SetPagiData(paginate(service, currentPage, pageSize));
-    }
-  }, [currentPage]);
-
+const Results = ({ services, coaches, title, location }) => {
   const router = useRouter();
   const { locale, t } = useTranslation();
-  console.log("pagiData", pagiData);
   const classes = useStyles();
+
+  let [results, setResults] = useState(services.filter((i, e) => {
+    if (title === i.title.toLowerCase())
+      if (location === '')
+        return i
+      else if (location === i.location.toLowerCase())
+        return i;
+      else
+        return null;
+  }))
+
+  useEffect(()=>{if(results.length === 0) setResults(services)},[results])
+
+  let [pageSize, SetPageSize] = useState(12);
+  let [currentPage, SetCurrentPage] = useState(1);
+
+  useEffect(() => { SetCurrentPage(1) }, [results])
+
   const handlePageChange = (page) => {
     SetCurrentPage(page);
   };
 
   const handleClick = (coachID, serviceID) => {
     console.log("coachID", coachID.lang, "serviceID", serviceID);
-    profile.push(coachID);
-    profile.push(serviceID);
 
     router.push({
       pathname: `/${locale}/profile`,
@@ -72,20 +70,14 @@ const Results = ({ results, services, coaches }) => {
     <div>
       <Layout>
         <div>
-          <Grid
-            container
-            justify="center"
-            spacing={2}
-            className={classes.gridContainer}
-          >
-            {pagiData.map((card) =>
+          <Grid container justify="center" spacing={2} className={classes.gridContainer}>
+            {results.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((card) =>
               coaches.map((coach) =>
                 card.owner === coach._id ? (
                   <Grid
                     onClick={(e) => handleClick(coach, card)}
                     key={card._id}
-                    item
-                    xs={3}
+                    item xs={3}
                   >
                     <Card
                       className={classes.paper}
@@ -102,7 +94,7 @@ const Results = ({ results, services, coaches }) => {
         <div className="pagination">
           <Pagination
             className="pagination"
-            itemsCount={count}
+            itemsCount={results.length}
             pageSize={pageSize}
             onPageChange={handlePageChange}
             currentPage={currentPage}
@@ -114,27 +106,17 @@ const Results = ({ results, services, coaches }) => {
 };
 
 Results.getInitialProps = async ({ query }) => {
-  const res = await fetch(`${urlEndpoint}coach/coaches`);
-  const coaches = await res.json();
-  const response = await fetch(`${urlEndpoint}searches`);
-  const services = await response.json();
-  // console.log("services", services ,'\n','coaches',coaches);
-  const results = services.filter((i, e) => {
-    if (
-      query.title === i.title.trim().toLowerCase() &&
-      query.location === i.location.trim().toLowerCase()
-    ) {
-      return i;
-    } else {
-      return null;
-    }
-  });
+  const coaches_res = await fetch(`${urlEndpoint}coach/coaches`);
+  const coaches = await coaches_res.json();
+  const services_res = await fetch(`${urlEndpoint}searches`);
+  const services = await services_res.json();
 
   return {
     coaches,
     services,
-    results,
-    query,
+    title: query.title,
+    location: query.location,
+
   };
 };
 
