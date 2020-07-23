@@ -5,6 +5,10 @@ import Layout from "../../components/Layout";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
 import fetch from "node-fetch";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { validateEmail, validatePassword } from '../../utils/validation'
+
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
 const Signup = () => {
@@ -19,6 +23,7 @@ const Signup = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     const body = { email, password, firstName, lastName, phone };
     const response = await fetch(`${urlEndpoint}auth/register-local`, {
       method: "post",
@@ -30,70 +35,69 @@ const Signup = () => {
       cookie.set("token", cookieToken, { expires: 2 });
       Router.push("/");
     }
+
   }
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
-        <p>{t("Signup")}</p>
-        <label htmlFor="email">
-          {t("Email")}
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            name="email"
-            type="email"
-            placeholder="email"
-          />
-        </label>
+      <form style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
+        <p>{t('Signup')}</p>
+        <TextField
+          required
+          label={t('FirstName')}
+          id="outlined-required"
+          name="firstName"
+          type="firstName"
+          variant="outlined"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <TextField
+          required
+          label={t('LastName')}
+          id="outlined-required"
+          name="lastName"
+          type="lastName"
+          variant="outlined"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <TextField
+          required
+          label={t('Email')}
+          id="outlined-required"
+          name="email"
+          type="email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          helperText={(email === '' || validateEmail(email)) ? "" : 'Email is Invalid'}
+        />
+        <TextField
+          required
+          label={t('Phone')}
+          id="outlined-number"
+          name="phone"
+          type="phone"
+          variant="outlined"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value.replace(/[^\d]/, ''))}
+        />
+        <TextField
+          required
+          label={t("Password")}
+          id="outlined-required"
+          name="password"
+          type="password"
+          variant="outlined"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          helperText={(password === '' || validatePassword(password)) ? "" : 'At least 6 characters'}
 
-        <label htmlFor="password">
-          {t("Password")}
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            name="password"
-            type="password"
-            placeholder="password"
-          />
-        </label>
-
-        <label htmlFor="firstName">
-          {t("FirstName")}
-          <input
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            name="firstName"
-            type="firstName"
-            placeholder="firstName"
-          />
-        </label>
-
-        <label htmlFor="lastName">
-          {t("LastName")}
-          <input
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            name="lastName"
-            type="lastName"
-            placeholder="lastName"
-          />
-        </label>
-
-        <label htmlFor="phone">
-          {t("Phone")}
-          <input
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            name="phone"
-            type="phone"
-            placeholder="phone"
-          />
-        </label>
-
-        <button type="submit">{t("Signup")}</button>
+        />
+        <Button variant="contained" value={"Signup"} disabled={!(validateEmail(email) && validatePassword(password) && firstName !== '' && lastName !== '' && phone !== '')} onClick={(e) => handleSubmit(e)} >{t("Signup")}</Button>
         {signupError && <p style={{ color: "red" }}>{signupError}</p>}
       </form>
-    </Layout>
+    </Layout >
   );
 };
 

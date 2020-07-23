@@ -69,7 +69,7 @@ const Results = ({ services, coaches, title, location }) => {
   return (
     <div>
       <Layout>
-        <AdvancedSearch />
+    <AdvancedSearch/>
         <div>
           <Grid container justify="center" spacing={2} className={classes.gridContainer}>
             {results.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((card) =>
