@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 const sports = [
@@ -16,8 +16,8 @@ const sports = [
   "Wrestling",
 ];
 export default function DesirableSports() {
-  const [value, setValue] = React.useState(sports[0]);
-  const [inputValue, setInputValue] = React.useState("");
+  const [value, setValue] = useState(sports[0]);
+  const [inputValue, setInputValue] = useState("");
   return (
     <div>
       <Autocomplete

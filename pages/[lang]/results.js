@@ -1,14 +1,11 @@
-// import data from "../../utils/data.js";
 import profile from "../../utils/data.js";
-import fetch from "node-fetch";
 import Card from "../../components/Cards";
+import { paginate } from "../../utils/paginate";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Layout from "../../components/Layout";
 import Pagination from "../../components/pagination";
 import { useState } from "react";
-import { paginate } from "../../utils/paginate";
-import Router from "next/router";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
@@ -24,16 +21,20 @@ const useStyles = makeStyles({
   },
 });
 
-const Results = (props) => {
-  let [count, SetCount] = useState(props.data.results.length);
-  let [counts, SetCounts] = useState(props.data.ress.length);
+const Results = ({ results, services, coaches, query }) => {
+  let [service, SetService] = useState(services);
+  let [count, SetCount] = useState(results.length);
   let [pageSize, SetPageSize] = useState(12);
   let [currentPage, SetCurrentPage] = useState(1);
-  let [pagiress, SetPagiress] = useState(
-    paginate(props.data.ress, currentPage, pageSize)
+  let [pagiData, SetPagiData] = useState(
+    paginate(results, currentPage, pageSize)
   );
-  let [pagiData, SetPagiData] = useState();
-  console.log(" propsprops", props);
+  console.log(" propsprops", pagiData);
+  if (count === 0) {
+    SetCount(32);
+    SetPagiData(paginate(service, currentPage, pageSize));
+  }
+
   const router = useRouter();
   const { locale, t } = useTranslation();
 
@@ -41,8 +42,6 @@ const Results = (props) => {
   const handlePageChange = (page) => {
     SetCurrentPage(page);
   };
-  // pagiress = ;
-  pagiData = paginate(props.data.results, currentPage, pageSize);
 
   const handleClick = (coachID, serviceID) => {
     console.log("coachID", coachID.lang, "serviceID", serviceID);
@@ -68,89 +67,45 @@ const Results = (props) => {
 
   return (
     <div>
-      {pagiData.length > 0 && (
-        <Layout>
-          <AdvancedSearch></AdvancedSearch>
-          <div>
-            <Grid className={classes.gridContainer}>
-              <Grid>
-                <Grid container justify="center" spacing={4}>
-                  {pagiData.map((card) =>
-                    props.data.coaches.map((coach) =>
-                      card.owner === coach._id ? (
-                        <Grid
-                          onClick={(e) => handleClick(coach, card)}
-                          key={card._id}
-                          item
-                          xs={3}
-                        >
-                          <Card
-                            className={classes.paper}
-                            card={card}
-                            coachName={coach}
-                            key={card._id}
-                          />
-                        </Grid>
-                      ) : null
-                    )
-                  )}
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
-          <div className="pagination">
-            <Pagination
-              className="pagination"
-              itemsCount={count}
-              pageSize={pageSize}
-              onPageChange={handlePageChange}
-              currentPage={currentPage}
-            />
-          </div>
-        </Layout>
-      )}
-
-      {/* *******************************************************************
-      {pagiress.length > 0 && (
-        <Layout>
-          <div>
-            <Grid className={classes.gridContainer}>
-              <Grid>
-                <Grid container justify="center" spacing={4}>
-                  {pagiress.map((all) =>
-                    props.props.coaches.map((coach) =>
-                      all.owner === coach._id ? (
-                        <Grid
-                          onClick={(e) => handleClick(coach, all)}
-                          key={all._id}
-                          item
-                          xs={3}
-                        >
-                          <Card
-                            className={classes.paper}
-                            all={all}
-                            coachName={coach}
-                            key={all._id}
-                          />
-                        </Grid>
-                      ) : null
-                    )
-                  )}
-                </Grid>
-              </Grid>
-            </Grid>
-          </div>
-          <div className="pagination">
-            <Pagination
-              className="pagination"
-              itemsCount={counts}
-              pageSize={pageSize}
-              onPageChange={handlePageChange}
-              currentPage={currentPage}
-            />
-          </div>
-        </Layout>
-      )} */}
+      <Layout>
+        <div>
+          <Grid
+            container
+            justify="center"
+            spacing={2}
+            className={classes.gridContainer}
+          >
+            {pagiData.map((card) =>
+              coaches.map((coach) =>
+                card.owner === coach._id ? (
+                  <Grid
+                    onClick={(e) => handleClick(coach, card)}
+                    key={card._id}
+                    item
+                    xs={3}
+                  >
+                    <Card
+                      className={classes.paper}
+                      card={card}
+                      coachName={coach}
+                      key={card._id}
+                    />
+                  </Grid>
+                ) : null
+              )
+            )}
+          </Grid>
+        </div>
+        <div className="pagination">
+          <Pagination
+            className="pagination"
+            itemsCount={count}
+            pageSize={pageSize}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      </Layout>
     </div>
   );
 };
@@ -161,12 +116,10 @@ Results.getInitialProps = async ({ query }) => {
   const response = await fetch(`${urlEndpoint}searches`);
   const services = await response.json();
   // console.log("services", services ,'\n','coaches',coaches);
-  const ress = [];
   const results = services.filter((i, e) => {
-    console.log("querys", i);
     if (
-      query.title === i.title.toLowerCase() &&
-      query.location === i.location.toLowerCase()
+      query.title === i.title.trim().toLowerCase() &&
+      query.location === i.location.trim().toLowerCase()
     ) {
       return i;
       // } else if (query.title !== i.title.toLowerCase()) {
@@ -176,11 +129,16 @@ Results.getInitialProps = async ({ query }) => {
       //   if (e < 32) {
       //     return i;
       //   }
+    } else {
+      return null;
     }
   });
 
   return {
-    data: { coaches, ress, results, query },
+    coaches,
+    services,
+    results,
+    query,
   };
 };
 

@@ -26,7 +26,10 @@ export default function Search() {
     } else {
       router.push({
         pathname: `/${locale}/results`,
-        query: { title, location: location.toLowerCase() },
+        query: {
+          title: title.trim().toLowerCase(),
+          location: location.trim().toLowerCase(),
+        },
       });
     }
   };
@@ -104,8 +107,4 @@ export default function Search() {
     </div>
   );
 }
-export async function getStaticProps() {
-  const response = await fetch(`${urlEndpoint}service/`);
-  const services = await response.json();
-  console.log('services', services);
-}
+
