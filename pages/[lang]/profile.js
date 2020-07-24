@@ -12,10 +12,7 @@ class Profile extends Component {
   state = {
     services: [],
     coachServices: [],
-   
-    
-  }; 
-
+  };
 
   componentDidMount() {
     fetch(`${urlEndpoint}searches`)
@@ -95,7 +92,7 @@ class Profile extends Component {
               </div>
 
               <div className="down">
-                  <button onClick={this.handleClick}>Contact Me</button>
+                <button onClick={this.handleClick}>Contact Me</button>
               </div>
             </div>
             <div className="rightSide">
@@ -111,6 +108,84 @@ class Profile extends Component {
             </div>
           </div>
         </div>
+        <style jsx>
+          {`
+            .Container {
+              position: fixed;
+              padding: 20px;
+              margin: 0px;
+              top: 120px;
+            }
+            .leftSide {
+              position: fixed;
+              background-color: red;
+              width: 300px;
+              height: 450px;
+              padding: 20px;
+              border-radius: 20px;
+              text-align: left;
+              left: 100px;
+            }
+            #coach {
+              position: relative;
+              top: 195px;
+              text-align: center;
+            }
+            #pics {
+              position: absolute;
+              top: 10px;
+              left: 55px;
+              height: 200px;
+              width: 200px;
+            }
+            .infoLeftSide {
+              position: relative;
+              top: 210px;
+              left: 50px;
+            }
+
+            .up {
+              position: fixed;
+              left: 480px;
+              width: 400px;
+              height: 200px;
+              padding: 20px;
+              border-radius: 20px;
+              background-color: red;
+            }
+            .down {
+              position: fixed;
+              left: 480px;
+              top: 380px;
+              width: 400px;
+              height: 200px;
+              padding: 20px;
+              border-radius: 20px;
+              background-color: red;
+            }
+
+            .leftInfo {
+              position: relative;
+              left: 10px;
+              text-align: left;
+            }
+            #leftIcon {
+              position: relative;
+              left: -30px;
+              text-align: left;
+            }
+            .rightSide {
+              position: fixed;
+              left: 960px;
+              background-color: red;
+              width: 300px;
+              height: 450px;
+              padding: 20px;
+              border-radius: 20px;
+              text-align: left;
+            }
+          `}
+        </style>
       </Layout>
     );
   }
@@ -122,8 +197,3 @@ Profile.getInitialProps = async ({ query }) => {
   };
 };
 export default WithLocaleWrapper(Profile);
-/* <style jsx>
-        {`
-        
-        `}
-      </style> */

@@ -1,72 +1,158 @@
-
 import React from "react";
-import useTranslation from '../hooks/useTranslation'
-
+import useTranslation from "../hooks/useTranslation";
+import Layout from "./Layout";
 
 const Cards = (props) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <div>
-     
-        <section id="team" className="pb-5">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-sm-6 col-md-4">
-                <div className="image-flip">
-                  <div className="mainflip flip-0">
-                    <div>
-                      {/* frontside */}
-                      <div className="frontside">
-                        <div className="card-body text-center">
-                          <img
-                            src="https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2Fdefault-user.png?v=1587762169218"
-                            alt="My name"
-                            id="pic"
-                            height="120"
-                            width="120"
-                          />
-                          <div className="coachInfo">
-                            <p className="card-name">{`${props.coachName.firstName} ${props.coachName.lastName}`}</p>
-                            <h5 className="card-title">{props.card.title}</h5>
-                            <p className="card-location">
-                              {props.card.location}
-                            </p>
-                            <p className="card-lang">
-                              {props.coachName.lang.slice(0, 2).toUpperCase()}
-                            </p>
-                            <p className="card-price">
-                              {props.card.price.toString().substring(0, 3)}$/h
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* end */}
+      
+        <div className="main">
+          <div className="card">
+            <div className="piccs">
+              <img
+                src="https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2FScreenshot_20180902-150158_Instagram.jpg?v=1564979250384"
+                alt="My name"
+                height="140"
+                width="140"
+                className="piccs"
+              />
+            </div>
+            <div className="info">
+              <p id="info1"> {`${props.coachName.firstName}`}</p>
+              <i
+                id="location"
+                className="fa fa-map-marker"
+                aria-hidden="true"
+              />
+              <p id="info5"> {props.card.location}</p>
 
-                      {/* backside */}
+              <p id="info2">{props.card.title}</p>
+              <i
+                id="language"
+                className="fa fa-comment-o"
+                aria-hidden="true"
+              ></i>
 
-                      <div className="backside">
-                        <a className="btn-neon">
-                          <div>
-                            <h4 className="card-head">{t('About')}</h4>
-                            <p className="card-text">
-                              <span className="backText">
-                                {props.card.description}
-                              </span>
-                            </p>
-                          </div>
-                          <svg height="270" width="200">
-                            <polyline points="0,0 200,0 200,265 0,265 0,00"></polyline>{" "}
-                          </svg>
-                        </a>
-                      </div>
-                      {/* end */}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <p id="info3">
+                {" "}
+                {props.coachName.lang.slice(0, 2).toUpperCase()}
+              </p>
+              <i id="money" className="fa fa-money" aria-hidden="true"></i>
+              <p id="info4">
+                {" "}
+                {props.card.price.toString().substring(0, 2)}€ /h
+              </p>
             </div>
           </div>
-        </section>
+        </div>
+        <style jsx>
+          {`
+            .piccs {
+              position: absolute;
+              background-color: red;
+              left: 15px;
+              top: 5px;
+              border-radius: 80px;
+              opacity: 0.95;
+              box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+              border: solid 1px gray;
+              z-index: -1;
+            }
+            .card {
+              position: relative;
+              left: 100px;
+              top: 100px;
+              height: 200px;
+              width: 360px;
+              border-radius: 20px;
+              background-color: rgba(148, 225, 245, 0.61);
+              border-style: solid;
+              box-shadow: 5px 7px 9px -4px rgb(73, 73, 77);
+              border: 1px solid rgba(132, 0, 255, 0.37);
+              z-index: 2;
+            }
+            .card:hover {
+              background-color: rgb(90, 90, 90);
+            }
+            .info {
+              position: absolute;
+              bottom: 0px;
+            }
+            @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@1,600&display=swap");
+            #info1 {
+              font-family: "Cabin", sans-serif;
+              position: relative;
+              top: -110px;
+              
+              left: 220px;
+              font-weight: 600;
+              font-size: 30px;
+              color: rgb(0, 0, 0);
+            }
+            #info5 {
+              position: absolute;
+              font-family: "Cabin", sans-serif;
+              bottom: 80px;
+              left: 245px;
+              
+              font-size: 20px;
+              font-weight: 400;
+              color: rgb(0, 0, 0);
+            }
+
+            #info2 {
+              position: absolute;
+              background-color: blue;
+              text-align: center;
+              border-radius: 5px;
+              font-family: "Cabin", sans-serif;
+              bottom: 45px;
+              width: 130px;
+              left: 220px;
+              color: rgb(255, 255, 255);
+            }
+            #info3 {
+              position: absolute;
+              bottom: -8px;
+              width: 70px;
+              left: 45px;
+              font-family: "Cabin", sans-serif;
+              color: rgb(0, 0, 0);
+              text-align: center;
+            }
+            #info4 {
+              position: absolute;
+              bottom: -7px;
+              width: 60px;
+              color: rgb(0, 0, 0);
+              left: 150px;
+              font-family: "Cabin", sans-serif;
+            }
+            #money {
+              position: absolute;
+              color: rgb(0, 0, 0);
+              bottom: 16px;
+              width: 80px;
+              left: 125px;
+            }
+
+            #location {
+              position: absolute;
+              bottom: 107px;
+              left: 225px;
+              font-size: 17px;
+              color: rgb(0, 0, 0);
+            }
+            #language {
+              position: absolute;
+              color: rgb(0, 0, 0);
+              bottom: 16px;
+              width: 80px;
+              left: 25px;
+            }
+          `}
+        </style>
     </div>
   );
 };

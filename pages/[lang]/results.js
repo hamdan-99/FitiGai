@@ -13,10 +13,14 @@ import AdvancedSearch from "../../components/advancedSearch";
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
 const useStyles = makeStyles({
+  root:{
+    height:"1100px"
+  }
+  ,
   gridContainer: {
-    paddingLeft: "40px",
-    paddingRight: "40px",
-    marginTop: "1rem",
+    position: "relative",
+    right: "80px",
+    top: "80px",
   },
 });
 
@@ -25,30 +29,32 @@ const Results = ({ services, coaches, title, location }) => {
   const { locale, t } = useTranslation();
   const classes = useStyles();
 
-  let [results, setResults] = useState(services.filter((i, e) => {
-    if (title === i.title.toLowerCase())
-      if (location === '')
-        return i
-      else if (location === i.location.toLowerCase())
-        return i;
-      else
-        return null;
-  }))
+  let [results, setResults] = useState(
+    services.filter((i, e) => {
+      if (title === i.title.toLowerCase())
+        if (location === "") return i;
+        else if (location === i.location.toLowerCase()) return i;
+        else return null;
+    })
+  );
 
-  useEffect(()=>{if(results.length === 0) setResults(services)},[results])
+  useEffect(() => {
+    if (results.length === 0)
+      setResults(services.map((i, e) => (e < 32 ? i : null)));
+  }, [results]);
 
-  let [pageSize, SetPageSize] = useState(12);
+  let [pageSize, SetPageSize] = useState(9);
   let [currentPage, SetCurrentPage] = useState(1);
 
-  useEffect(() => { SetCurrentPage(1) }, [results])
+  useEffect(() => {
+    SetCurrentPage(1);
+  }, [results]);
 
   const handlePageChange = (page) => {
     SetCurrentPage(page);
   };
 
   const handleClick = (coachID, serviceID) => {
-    console.log("coachID", coachID.lang, "serviceID", serviceID);
-
     router.push({
       pathname: `/${locale}/profile`,
       query: {
@@ -67,29 +73,37 @@ const Results = ({ services, coaches, title, location }) => {
   };
 
   return (
-    <div>
+    <div  className={classes.root}>
       <Layout>
-    <AdvancedSearch/>
+        < AdvancedSearch />
         <div>
-          <Grid container justify="center" spacing={2} className={classes.gridContainer}>
-            {results.slice((currentPage - 1) * pageSize, currentPage * pageSize).map((card) =>
-              coaches.map((coach) =>
-                card.owner === coach._id ? (
-                  <Grid
-                    onClick={(e) => handleClick(coach, card)}
-                    key={card._id}
-                    item xs={3}
-                  >
-                    <Card
-                      className={classes.paper}
-                      card={card}
-                      coachName={coach}
+          <Grid
+            container
+            justify="left"
+            spacing={2}
+            className={classes.gridContainer}
+          >
+            {results
+              .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+              .map((card) =>
+                coaches.map((coach) =>
+                  card.owner === coach._id ? (
+                    <Grid
+                      onClick={(e) => handleClick(coach, card)}
                       key={card._id}
-                    />
-                  </Grid>
-                ) : null
-              )
-            )}
+                      item
+                      xs={4}
+                    >
+                      <Card
+                        className={classes.paper}
+                        card={card}
+                        coachName={coach}
+                        key={card._id}
+                      />
+                    </Grid>
+                  ) : null
+                )
+              )}
           </Grid>
         </div>
         <div className="pagination">
@@ -117,7 +131,6 @@ Results.getInitialProps = async ({ query }) => {
     services,
     title: query.title,
     location: query.location,
-
   };
 };
 
