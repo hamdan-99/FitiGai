@@ -13,14 +13,14 @@ import AdvancedSearch from "../../components/advancedSearch";
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
 const useStyles = makeStyles({
-  root:{
-    height:"1100px"
-  }
-  ,
+  root: {
+    height: "100%",
+  },
   gridContainer: {
     position: "relative",
     right: "80px",
     top: "80px",
+    backgroundColor: "red",
   },
 });
 
@@ -73,10 +73,10 @@ const Results = ({ services, coaches, title, location }) => {
   };
 
   return (
-    <div  className={classes.root}>
+    <div className={classes.root}>
       <Layout>
-        < AdvancedSearch />
         <div>
+          <AdvancedSearch />
           <Grid
             container
             justify="left"

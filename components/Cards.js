@@ -72,6 +72,7 @@ const Cards = (props) => {
               border: 1px solid rgba(132, 0, 255, 0.37);
               z-index: 2;
             }
+            
             .card:hover {
               background-color: rgb(90, 90, 90);
             }
