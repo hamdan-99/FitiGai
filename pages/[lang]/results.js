@@ -20,7 +20,6 @@ const useStyles = makeStyles({
     position: "relative",
     right: "80px",
     top: "80px",
-    backgroundColor: "red",
   },
 });
 
