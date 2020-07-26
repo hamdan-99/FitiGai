@@ -30,9 +30,9 @@ const strings = {
 
   },
   fr: {
-    Home: 'FR Home',
-    About: 'FR About',
-    Contact: 'FR Contact',
+    Home: 'Accueil',
+    About: 'Sur',
+    Contact: 'Contactez',
     Login: 'Se connecter',
     Signup: 'Inscrivez-vous',
     Logout: 'Déconnexion',
@@ -60,8 +60,8 @@ const strings = {
 
   },
   nl: {
-    Home: 'NL Home',
-    About: 'NL About',
+    Home: 'Thuis',
+    About: 'Over',
     Contact: 'Contact',
     Login: 'Inloggen',
     Signup: 'Aanmelden',
