@@ -1,6 +1,5 @@
 import React from "react";
 import useTranslation from "../hooks/useTranslation";
-import Layout from "./Layout";
 
 const Cards = (props) => {
   const { t } = useTranslation();
@@ -61,8 +60,9 @@ const Cards = (props) => {
             }
             .card {
               position: relative;
-              left: 100px;
-              top: 100px;
+              left: 0px;
+              top: -15px;
+              margin: 20px;
               height: 200px;
               width: 360px;
               border-radius: 20px;
@@ -74,7 +74,7 @@ const Cards = (props) => {
             }
             
             .card:hover {
-              background-color: rgb(90, 90, 90);
+              background-color: rgba(148, 225, 245, 0.41);
             }
             .info {
               position: absolute;
@@ -85,7 +85,7 @@ const Cards = (props) => {
               font-family: "Cabin", sans-serif;
               position: relative;
               top: -110px;
-              
+            
               left: 220px;
               font-weight: 600;
               font-size: 30px;
@@ -96,12 +96,11 @@ const Cards = (props) => {
               font-family: "Cabin", sans-serif;
               bottom: 80px;
               left: 245px;
-              
               font-size: 20px;
               font-weight: 400;
               color: rgb(0, 0, 0);
             }
-
+            
             #info2 {
               position: absolute;
               background-color: blue;
@@ -137,7 +136,7 @@ const Cards = (props) => {
               width: 80px;
               left: 125px;
             }
-
+            
             #location {
               position: absolute;
               bottom: 107px;

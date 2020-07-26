@@ -1,48 +1,28 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import DesirableSports from "../components/sports";
-import Locations from "../components/locations";
-import SelectedPrice from "../components/prices";
-import LanguageSelect from "../components/languages";
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
+
 export default function AdvancedSearch() {
-  const classes = useStyles();
+
+  const handleChange = (e)=>{
+    e.preventDefault()
+    console.log(e.target.value)
+  }
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={6} md={3} sm={6}>
-          <Paper className={classes.paper}>
-            <DesirableSports />
-          </Paper>
-        </Grid>
-        <Grid item xs={6} md={3} sm={6}>
-          <Paper className={classes.paper}>
-            {" "}
-            <Locations />
-          </Paper>
-        </Grid>
-        <Grid item xs={6} md={3} sm={6}>
-          <Paper className={classes.paper}>
-            <SelectedPrice />
-          </Paper>
-        </Grid>
-        <Grid item xs={6} md={3} sm={6}>
-          <Paper className={classes.paper}>
-            <LanguageSelect />
-          </Paper>
-        </Grid>
-      </Grid>
+    <div className='container'>
+     <select onChange={handleChange}>
+       <option selected>Choose Sport</option>
+       <option value='tennis'>tennis</option>
+       <option value='Volleyball'>Volleyball</option>
+       <option value='Football'>Football</option>
+       <option value='Badminton'>Badminton</option>
+       <option value='Disability'>Disability</option>
+       <option value='Diving'>Diving</option>
+       <option value='Boxing'>Boxing</option>
+       <option value='Judo'>Judo</option>
+       <option value='Swimming'>Swimming</option>
+       <option value='Table Tennis'>Table Tennis</option>
+       <option value='Taekwondo'>Taekwondo</option>
+       <option value='Wrestling'>Wrestling</option>
+     </select>
     </div>
   );
 }

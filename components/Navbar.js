@@ -88,6 +88,11 @@ const Navbar = () => {
       </div>
       <style jsx>
         {`
+          .header{
+            position:fixed;
+            height:50px;
+            
+          }
           .menu-bar {
             background-color: rgb(36, 36, 36, 0.7);
           }

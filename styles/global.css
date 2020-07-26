@@ -70,7 +70,13 @@ body {
 .pagination {
   position: justify;
   text-align: center;
-  margin-left:110px;
+  margin-left: 130px;
   margin-top: 20px;
 }
 
+.MuiGrid-root.makeStyles-root-17.MuiGrid-container.MuiGrid-spacing-xs-2 {
+  width: 1250px;
+  position: relative;
+  top: 30px;
+  left: 50px;
+}

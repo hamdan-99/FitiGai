@@ -12,21 +12,22 @@ import AdvancedSearch from "../../components/advancedSearch";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
+    flexGrow: 1,
+    position:"relative"
   },
-  gridContainer: {
-    position: "relative",
-    right: "80px",
-    top: "80px",
+ 
+  control: {
+    padding: theme.spacing(3),
   },
-});
+}));
 
 const Results = ({ services, coaches, title, location }) => {
   const router = useRouter();
   const { locale, t } = useTranslation();
   const classes = useStyles();
+  const [spacing, setSpacing] = React.useState(2);
 
   let [results, setResults] = useState(
     services.filter((i, e) => {
@@ -72,50 +73,50 @@ const Results = ({ services, coaches, title, location }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Layout>
-        <div>
-          <AdvancedSearch />
-          <Grid
-            container
-            justify="left"
-            spacing={2}
-            className={classes.gridContainer}
-          >
-            {results
-              .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-              .map((card) =>
-                coaches.map((coach) =>
-                  card.owner === coach._id ? (
-                    <Grid
-                      onClick={(e) => handleClick(coach, card)}
-                      key={card._id}
-                      item
-                      xs={4}
-                    >
-                      <Card
-                        className={classes.paper}
-                        card={card}
-                        coachName={coach}
-                        key={card._id}
-                      />
-                    </Grid>
-                  ) : null
-                )
-              )}
-          </Grid>
+    <Layout>
+      <div>
+        <AdvancedSearch className={classes.advance} />
+        <div className="MuiGrid-root makeStyles-root-17 MuiGrid-container MuiGrid-spacing-xs-2">
+          <div className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12'>
+            <div className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2">
+              <Grid container className={classes.root} spacing={3}>
+                <Grid item xs={12}>
+                  <Grid container justify="center" spacing={spacing}>
+                    {results
+                      .slice(
+                        (currentPage - 1) * pageSize,
+                        currentPage * pageSize
+                      )
+                      .map((card) =>
+                        coaches.map((coach) =>
+                          card.owner === coach._id ? (
+                            <Grid onClick={() => handleClick(coach, card)} item>
+                              <Card
+                                card={card}
+                                coachName={coach}
+                                key={card._id}
+                              />
+                            </Grid>
+                          ) : null
+                        )
+                      )}
+                  </Grid>
+                </Grid>
+              </Grid>
+            </div>
+          </div>
         </div>
-        <div className="pagination">
-          <Pagination
-            className="pagination"
-            itemsCount={results.length}
-            pageSize={pageSize}
-            onPageChange={handlePageChange}
-            currentPage={currentPage}
-          />
-        </div>
-      </Layout>
-    </div>
+      </div>
+      <div className="pagination">
+        <Pagination
+          className="pagination"
+          itemsCount={results.length}
+          pageSize={pageSize}
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
+        />
+      </div>
+    </Layout>
   );
 };
 

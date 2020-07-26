@@ -13,17 +13,17 @@ const Layout = (props) => {
         <meta
           name="keywords"
           content="Tennis,
-  Volleyball,
-  Football,
-  Badminton,
-  Disability Sport,
-  Diving,
-  Boxing,
-  Judo,
-  Swimming,
-  Table Tennis,
-  Taekwondo,
-  Wrestling"
+                    Volleyball,
+                    Football,
+                    Badminton,
+                    Disability Sport,
+                    Diving,
+                    Boxing,
+                    Judo,
+                    Swimming,
+                    Table Tennis,
+                    Taekwondo,
+                    Wrestling"
         />
 
         <meta

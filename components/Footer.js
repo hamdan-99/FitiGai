@@ -21,15 +21,15 @@ const Footer = () => (
     <style jsx>
       {`
         .footer {
-          position: fixed;
+          position: relative;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
           background-color: rgb(36, 36, 36);
-          height: 60px;
+          height: 44px;
           width: 100%;
-          bottom: 0px;
+          bottom: 0;
           opacity: 0.7;
         }
 
