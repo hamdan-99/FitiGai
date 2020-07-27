@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import cookie from 'js-cookie';
 import Router from 'next/router';
 import useTranslation from '../hooks/useTranslation';
+import LocaleSwitcher from './LocaleSwitcher';
 
 const Navbar = () => {
   const cookieToken = cookie.get('token');
@@ -26,55 +27,39 @@ const Navbar = () => {
               <span id='fit'>Fitigai</span>
             </span>
           </a>
-          <button
-            className='navbar-toggler'
-            type='button'
-            data-toggle='collapse'
-            data-target='#navbarNav'
-            aria-controls='navbarNav'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
-          >
-            <span className='navbar-toggler-icon'></span>
-          </button>
+
           <div className='collapse navbar-collapse' id='navbarNav'>
-            <ul className='navbar-nav ml-auto'>
-              <li className='nav-item'>
-                <Link href='/[lang]' as={`/${locale}`}>
-                  <a className='nav-link'>
-                    <span className='navMenu'>{t('Home')}</span>
-                  </a>
+            <div className='navbar-nav ml-auto'>
+
+              {!loggedIn && (
+                <Link href='/[lang]/login' as={`/${locale}/login`}>
+                  <button className='btn btn-outline-primary'>
+                    {t('Login')}
+                  </button>
                 </Link>
-              </li>
-            </ul>
+              )}
 
-            {!loggedIn && (
-              <Link href='/[lang]/login' as={`/${locale}/login`}>
-                <button className='btn btn-outline-primary'>
-                  {t('Login')}
-                </button>
-              </Link>
-            )}
+              {!loggedIn && (
+                <Link href='/[lang]/signup' as={`/${locale}/signup`}>
+                  <button className='btn btn-success'>{t('Signup')}</button>
+                </Link>
+              )}
 
-            {!loggedIn && (
-              <Link href='/[lang]/signup' as={`/${locale}/signup`}>
-                <button className='btn btn-success'>{t('Signup')}</button>
-              </Link>
-            )}
-
-            {loggedIn && (
-              <Link href='/[lang]' as={`/${locale}`}>
-                <button
-                  onClick={() => {
-                    cookie.remove('token');
-                    Router.push('/');
-                  }}
-                  className='btn btn-outline-danger'
-                >
-                  {t('Logout')}
-                </button>
-              </Link>
-            )}
+              {loggedIn && (
+                <Link href='/[lang]' as={`/${locale}`}>
+                  <button
+                    onClick={() => {
+                      cookie.remove('token');
+                      Router.push('/');
+                    }}
+                    className='btn btn-outline-danger'
+                  >
+                    {t('Logout')}
+                  </button>
+                </Link>
+              )}
+              <LocaleSwitcher />
+            </div>
           </div>
         </nav>
       </div>

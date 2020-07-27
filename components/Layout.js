@@ -33,6 +33,7 @@ const Layout = (props) => {
           integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk'
           crossOrigin='anonymous'
         ></link>
+
         <link
           rel='stylesheet'
           href='https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css'
@@ -41,6 +42,8 @@ const Layout = (props) => {
           rel='stylesheet'
           href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
         />
+
+
         <script
           src='https://code.jquery.com/jquery-3.5.1.slim.min.js'
           integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj'
@@ -59,7 +62,7 @@ const Layout = (props) => {
       </Head>
       <Navbar />
       {props.children}
-      <Footer />
+
       <style jsx>{`
         .page {
           min-height: 100vh;
