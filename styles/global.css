@@ -6,6 +6,9 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
+  background-image: url('./backgroundImages/biking-min.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .searchPage {
@@ -16,48 +19,17 @@ body {
 @keyframes animate {
   0%,
   100% {
-    background-image: url("./backgroundImages/basket-min.jpeg");
+    background-image: url('./backgroundImages/basket-min.jpeg');
   }
   25% {
-    background-image: url("./backgroundImages/biking-min.jpeg");
+    background-image: url('./backgroundImages/biking-min.jpeg');
   }
   50% {
-    background-image: url("./backgroundImages/fitness-min.jpeg");
+    background-image: url('./backgroundImages/fitness-min.jpeg');
   }
   75% {
-    background-image: url("./backgroundImages/volleygirls-min.jpeg");
+    background-image: url('./backgroundImages/volleygirls-min.jpeg');
   }
-}
-.page {
-  min-height: 100vh;
-}
-
-.logo {
-  border: solid rgb(255, 255, 255) 1px;
-  background-color: rgb(38, 255, 67);
-}
-.logo:hover {
-  border: solid rgb(38, 255, 67) 1px;
-  box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
-}
-@import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap");
-.logoName {
-  font-family: "Faster One", cursive;
-  color: red;
-  position: relative;
-  top: -4px;
-}
-#fit {
-  color: rgb(45, 250, 26);
-}
-
-.navMenue {
-  color: rgb(181, 255, 9);
-  margin-right: 20px;
-}
-.navMenue:hover {
-  color: rgb(251, 252, 250);
-  background-color: rgba(67, 184, 0, 0.26);
 }
 
 .lanLigst {
@@ -65,7 +37,7 @@ body {
   color: rgb(0, 0, 0);
 }
 
-@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 .pagination {
   position: justify;
