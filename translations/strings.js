@@ -26,7 +26,10 @@ const strings = {
     English: 'English',
     French: 'French',
     Dutch: 'Dutch',
-    ContactMe: 'Contact Me'
+    ContactMe: 'Contact Me',
+    DontHaveAccount: "Don't have an account?",
+    AlreadyHaveAccount: "Already have an account?",
+    AgreeTermsAndServices: "I agree to the terms of services"
 
   },
   fr: {
@@ -55,7 +58,10 @@ const strings = {
     English: 'Anglais',
     French: 'Français',
     Dutch: 'Néerlandais',
-    ContactMe: 'Contactez-moi'
+    ContactMe: 'Contactez-moi',
+    DontHaveAccount: "Vous n'avez pas de compte?",
+    AlreadyHaveAccount: "Vous avez déjà un compte?",
+    AgreeTermsAndServices: "J'accepte les conditions de service"
 
 
   },
@@ -85,7 +91,13 @@ const strings = {
     English: 'Engels',
     French: 'Frans',
     Dutch: 'Nederlands',
-    ContactMe: 'Contact Me'
+    ContactMe: 'Contact Me',
+    DontHaveAccount: "Heb je geen account?",
+    AlreadyHaveAccount: "Heb je al een account?",
+    AgreeTermsAndServices: "Ik ga akkoord met de voorwaarden van de diensten"
+
+
+
   }
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 import { Formik } from "formik";
 import { validateEmail } from '../utils/validation'
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,7 @@ import fetch from "node-fetch";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
-const ValidatedLoginForm = ({ t }) => (
+const ValidatedLoginForm = ({ t, locale }) => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(body, { setSubmitting }) => {
@@ -29,7 +30,7 @@ const ValidatedLoginForm = ({ t }) => (
               localStorage.setItem("token", res.token);
               Router.push("/");
             }
-          });
+          })
       }, 500);
     }}
     //********Handling validation messages yourself*******/
@@ -65,36 +66,97 @@ const ValidatedLoginForm = ({ t }) => (
         handleSubmit
       } = props;
       return (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}>
-          <TextField
-            label={t('Email')}
-            id="outlined-required"
-            name="email"
-            type="text"
-            variant="outlined"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={errors.email && touched.email ? errors.email : null}
-            error={errors.email && touched.email}
-          />
-          <TextField
-            label={t("Password")}
-            id="outlined-required"
-            name="password"
-            type="password"
-            variant="outlined"
-            value={values.password}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            helperText={errors.password && touched.password ? errors.password : null}
-            error={errors.password && touched.password}
-          />
-          <Button variant="contained" value={"Login"} type="submit" disabled={isSubmitting} >{t("Login")}</Button>
-        </form>
+        <div className='login-form'>
+          <h1>{t('Login')}</h1>
+          <form onSubmit={handleSubmit} >
+            <TextField
+              label={t('Email')}
+              id="outlined-required"
+              className='input-box'
+              name="email"
+              type="text"
+              variant="outlined"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={errors.email && touched.email ? errors.email : null}
+              error={errors.email && touched.email}
+            />
+            <TextField
+              label={t("Password")}
+              id="outlined-required"
+              className='input-box'
+              name="password"
+              type="password"
+              variant="outlined"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={errors.password && touched.password ? errors.password : null}
+              error={errors.password && touched.password}
+            />
+            <Button variant="contained" className='login-btn' value={"Login"} type="submit" disabled={isSubmitting} >{t("Login")}</Button>
+            <hr />
+            <p>
+              {t('DontHaveAccount')}
+              <Link href='/[lang]/signup' as={`/${locale}/signup`}>
+                <a className='login-link'>
+                  {t('Signup')}
+                </a>
+              </Link>
+            </p>
+          </form>
+          <style jsx>
+            {`
+            .login-form {
+              width: 350px;
+              border-radius: 20px;
+              box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+              background: #fff;
+              padding: 20px;
+              margin: 50px auto;
+              text-align: center;
+            }
+            .login-form h1 {
+              color: #1c8adb;
+              margin-bottom: 30px;
+            }
+            .input-box {
+              border-radius: 20px;
+              padding: 10px;
+              margin: 2px 0;
+              width: 100%;
+              border: 1px solid #999;
+              outline: none;
+            }
+            .login-btn {
+              background-color: #1c8adb;
+              color: #fff;
+              width: 100%;
+              padding: 10px;
+              border-radius: 20px;
+              margin: 10px 0;
+              border: none;
+              outline: none;
+              cursor: pointer;
+            }
+            .login-btn:hover {
+              opacity: 0.9;
+            }
+            .login-link {
+              text-decoration: none;
+              margin-left: 2px;
+            }
+            hr {
+              margin-top: 20px;
+              width: 80%;
+            }
+          `}
+          </style>
+        </div>
       );
     }}
-  </Formik>
+  </Formik >
 )
 
 
