@@ -75,7 +75,7 @@ const Results = ({ services, coaches, title, location }) => {
   return (
     <Layout>
       <div>
-        <AdvancedSearch className={classes.advance} />
+        <AdvancedSearch services={services} coaches={coaches} className={classes.advance} />
         <div className="MuiGrid-root makeStyles-root-17 MuiGrid-container MuiGrid-spacing-xs-2">
           <div className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12'>
             <div className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2">
@@ -90,7 +90,7 @@ const Results = ({ services, coaches, title, location }) => {
                       .map((card) =>
                         coaches.map((coach) =>
                           card.owner === coach._id ? (
-                            <Grid onClick={() => handleClick(coach, card)} item>
+                            <Grid key={card._id} onClick={() => handleClick(coach, card)} item>
                               <Card
                                 card={card}
                                 coachName={coach}
