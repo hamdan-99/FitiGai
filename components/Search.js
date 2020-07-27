@@ -36,7 +36,9 @@ export default function Search() {
   return (
     <div className='searchPage'>
       <section className='banner text-center'>
-        <h1>FIND A SPORTS COACH NEAR YOU </h1>
+        <h1>
+          FIND A <span className='banner-blue'>SPORTS COACH </span>NEAR YOU{' '}
+        </h1>
         <p>We provide you with the best sports coaches in Belgium</p>
         <div className='search-info text-center'>
           <input
@@ -65,28 +67,34 @@ export default function Search() {
       </section>
       <style jsx>
         {`
-          .banner {
-            color: #fff;
-            height: 81vh;
+          .searchPage {
+            height: 90vh;
           }
           .banner h1 {
+            color: #fff;
             padding-top: 170px;
             font-size: 40px;
             letter-spacing: 5px;
             font-weight: 600;
-            text-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
           }
           .banner p {
-            font-size: 25px;
+            color: #fff;
+            font-size: 22px;
+            margin-left: 18px;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+          }
+          .banner-blue {
+            color: #007bff;
           }
           .search-info {
-            padding: 30px 0;
-            // margin: -50px 6% 50px;
+            padding-top: 20px;
+            padding-left: 0px;
           }
           .search-info .form-control {
             max-width: 200px;
             display: inline-flex;
-            margin: 10px 2px;
+            margin: 10px 5px;
             border-radius: 10px;
             box-shadow: none !important;
             border: none !important;
@@ -96,15 +104,35 @@ export default function Search() {
             box-shadow: none;
             border: none;
             display: inline-flex;
-            margin: 2px;
+            margin: 0 5px;
             padding: 7px 20px;
           }
           .search-info .btn-primary:hover {
-            background: red;
+            opacity: 0.9;
+          }
+          @media screen and (max-width: 480px) {
+            .banner {
+              min-height: 90vh;
+              padding-top: 30px;
+            }
+            .banner h1 {
+              padding-top: 70px;
+              font-size: 40px;
+              letter-spacing: 3px;
+              font-weight: 600;
+              text-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+            }
+            .search-info .form-control {
+              display: block;
+              margin: 10px auto;
+            }
+            .search-info .btn-primary {
+              width: 200px;
+              margin: auto;
+            }
           }
         `}
       </style>
     </div>
   );
 }
-
