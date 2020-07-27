@@ -58,8 +58,19 @@ const Layout = (props) => {
         ></script>
       </Head>
       <Navbar />
-      <div className='content'>{props.children}</div>
+      {props.children}
       <Footer />
+      <style jsx>{`
+        .page {
+          min-height: 100vh;
+        }
+
+        @media screen and (max-width: 480px) {
+          .page {
+            min-height: 90vh;
+          }
+        }
+      `}</style>
     </div>
   );
 };

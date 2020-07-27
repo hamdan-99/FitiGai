@@ -26,11 +26,12 @@ const Footer = () => (
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
-          background-color: rgb(36, 36, 36);
-          height: 60px;
+          //background-color: rgb(36, 36, 36);
+          background-color: #008489;
+          height: 70px;
           width: 100%;
           bottom: 0px;
-          opacity: 0.7;
+          // opacity: 0.7;
         }
 
         li {

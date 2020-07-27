@@ -17,19 +17,13 @@ const Navbar = () => {
     <section id='header'>
       <div className='menu-bar'>
         <nav className='navbar navbar-expand-lg navbar-light'>
-          <img
-            className='logo'
-            src='/images/fitigai_logo.png'
-            alt='logo'
-            style={{ width: '50px', height: '50px', borderRadius: '35px' }}
-          />
           <a
             className='navbar-brand ml-3'
             href='/'
             style={{ fontSize: '32px' }}
           >
             <span className='logoName'>
-              <span id='fit'>Fit</span>igai
+              <span id='fit'>Fitigai</span>
             </span>
           </a>
           <button
@@ -48,7 +42,7 @@ const Navbar = () => {
               <li className='nav-item'>
                 <Link href='/[lang]' as={`/${locale}`}>
                   <a className='nav-link'>
-                    <span className='navMenue'>{t('Home')}</span>
+                    <span className='navMenu'>{t('Home')}</span>
                   </a>
                 </Link>
               </li>
@@ -64,9 +58,7 @@ const Navbar = () => {
 
             {!loggedIn && (
               <Link href='/[lang]/signup' as={`/${locale}/signup`}>
-                <button className='btn btn-outline-success'>
-                  {t('Signup')}
-                </button>
+                <button className='btn btn-success'>{t('Signup')}</button>
               </Link>
             )}
 
@@ -89,13 +81,41 @@ const Navbar = () => {
       <style jsx>
         {`
           .menu-bar {
-            background-color: rgb(36, 36, 36, 0.7);
+            background-color: #008489;
           }
-          button {
+          .navMenu {
+            color: #fff;
+            margin-right: 20px;
+          }
+          .navMenu:hover {
+            color: lightblue;
+          }
+
+          .btn-outline-primary {
+            color: #fff;
+            margin-left: -15px;
             border: none;
           }
-          .btn-outline-primary {
-            margin-left: -15px;
+          .btn-outline-primary:hover {
+            background-color: inherit;
+            color: lightblue;
+          }
+          .btn-success {
+            color: #fff;
+            border-radius: 20px;
+          }
+
+          .logoName:hover {
+            box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
+          }
+          @import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap');
+          .logoName {
+            font-family: 'Faster One', cursive;
+            position: relative;
+            top: -4px;
+          }
+          #fit {
+            color: #fff;
           }
         `}
       </style>
