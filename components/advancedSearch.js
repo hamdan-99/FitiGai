@@ -111,10 +111,7 @@ class AdvancedSearch extends Component {
             placeholder="price"
             type="number"
           />
-          {/*Languages   */}
-          {/* brussels */}
-          {/*  Leuven  */}
-          {/*   Paris  */}
+      
         </div>
       </div>
     );
