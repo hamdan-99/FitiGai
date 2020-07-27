@@ -21,34 +21,31 @@ const Footer = () => (
     <style jsx>
       {`
         .footer {
-          position: relative;
+          position: fixed;
           display: flex;
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
-          background-color: rgb(36, 36, 36);
-          height: 44px;
+          //background-color: rgb(36, 36, 36);
+          background-color: #008489;
+          height: 70px;
           width: 100%;
-          bottom: 0;
-          opacity: 0.7;
+          bottom: 0px;
+          // opacity: 0.7;
         }
-
         li {
           list-style: none;
         }
-
         .socialMediaLinks {
           display: flex;
           flex-direction: row;
           align-items: center;
         }
-
         .socialMediaIcons {
           height: 25px;
           width: 25px;
           filter: invert(1);
         }
-
         .footerOptions {
           margin: 10px;
           border-radius: 15px;
