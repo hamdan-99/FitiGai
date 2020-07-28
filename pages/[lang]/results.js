@@ -1,5 +1,4 @@
 import Card from '../../components/Cards';
-import { paginate } from '../../utils/paginate';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Layout from '../../components/Layout';
@@ -18,12 +17,8 @@ const useStyles = makeStyles((theme) => ({
   },
   gridContainer: {
     marginTop: '3rem',
-    paddingLeft: '20px',
-    paddingRight: '20px',
-  },
-
-  control: {
-    padding: theme.spacing(1),
+    paddingLeft: '40px',
+    paddingRight: '40px',
   },
 }));
 
@@ -31,7 +26,6 @@ const Results = ({ services, coaches, title, location }) => {
   const router = useRouter();
   const { locale, t } = useTranslation();
   const classes = useStyles();
-  const [spacing, setSpacing] = React.useState(2);
 
   let [results, setResults] = useState(
     services.filter((i, e) => {
@@ -78,47 +72,57 @@ const Results = ({ services, coaches, title, location }) => {
 
   return (
     <Layout>
-      <div className='container'>
-        <AdvancedSearch
-          services={services}
-          coaches={coaches}
-          className={classes.advance}
-        />
+      <div className='wrapper'>
+        <div className='container'>
+          <AdvancedSearch
+            services={services}
+            coaches={coaches}
+            className={classes.advance}
+          />
 
-        <Grid
-          container
-          spacing={10}
-          className={classes.gridContainer}
-          justify='center'
-        >
-          {results
-            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-            .map((card) =>
-              coaches.map((coach) =>
-                card.owner === coach._id ? (
-                  <Grid
-                    key={card._id}
-                    onClick={() => handleClick(coach, card)}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                  >
-                    <Card card={card} coachName={coach} key={card._id} />
-                  </Grid>
-                ) : null
-              )
-            )}
-        </Grid>
-      </div>
-      <div className='pagination'>
-        <Pagination
-          className='pagination'
-          itemsCount={results.length}
-          pageSize={pageSize}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
+          <Grid
+            container
+            spacing={5}
+            justify='center'
+            className={classes.gridContainer}
+          >
+            {results
+              .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+              .map((card) =>
+                coaches.map((coach) =>
+                  card.owner === coach._id ? (
+                    <Grid
+                      key={card._id}
+                      onClick={() => handleClick(coach, card)}
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                    >
+                      <Card card={card} coachName={coach} key={card._id} />
+                    </Grid>
+                  ) : null
+                )
+              )}
+          </Grid>
+
+          <div className='pagination'>
+            <Pagination
+              className='pagination'
+              itemsCount={results.length}
+              pageSize={pageSize}
+              onPageChange={handlePageChange}
+              currentPage={currentPage}
+            />
+          </div>
+        </div>
+        <style jsx>
+          {`
+            .wrapper {
+              background-color: aliceblue;
+            }
+          `}
+        </style>
       </div>
     </Layout>
   );
