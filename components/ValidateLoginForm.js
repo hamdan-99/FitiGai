@@ -70,8 +70,8 @@ const ValidatedLoginForm = ({ t, locale }) => (
           <h1>{t('Login')}</h1>
           <form onSubmit={handleSubmit} >
             <TextField
+              borderRadius="50%"
               label={t('Email')}
-              m="2rem"
               id="outlined-required"
               className='input-box'
               name="email"
@@ -80,9 +80,10 @@ const ValidatedLoginForm = ({ t, locale }) => (
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.email && touched.email ? errors.email : null}
+              helperText={errors.email && touched.email ? t(errors.email) : null}
               error={errors.email && touched.email}
             />
+            <hr />
             <TextField
               label={t("Password")}
               id="outlined-required"
@@ -93,10 +94,11 @@ const ValidatedLoginForm = ({ t, locale }) => (
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.password && touched.password ? errors.password : null}
+              helperText={errors.password && touched.password ? t(errors.password) : null}
               error={errors.password && touched.password}
             />
-            <Button variant="contained" className='login-btn' value={"Login"} type="submit" disabled={isSubmitting} >{t("Login")}</Button>
+            <hr />
+            <button variant="contained" className='login-btn' value={"Login"} type="submit" disabled={isSubmitting} >{t("Login")}</button>
             <hr />
             <p>
               {t('DontHaveAccount')}
@@ -136,7 +138,6 @@ const ValidatedLoginForm = ({ t, locale }) => (
               width: 100%;
               padding: 10px;
               border-radius: 20px;
-              margin: 10px 0;
               border: none;
               outline: none;
               cursor: pointer;
