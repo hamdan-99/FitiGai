@@ -1,25 +1,29 @@
-import Card from "../../components/Cards";
-import { paginate } from "../../utils/paginate";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Layout from "../../components/Layout";
-import Pagination from "../../components/pagination";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import WithLocaleWrapper from "../../hocs/withLocale";
-import useTranslation from "../../hooks/useTranslation";
-import AdvancedSearch from "../../components/advancedSearch";
+import Card from '../../components/Cards';
+import { paginate } from '../../utils/paginate';
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Layout from '../../components/Layout';
+import Pagination from '../../components/pagination';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import WithLocaleWrapper from '../../hocs/withLocale';
+import useTranslation from '../../hooks/useTranslation';
+import AdvancedSearch from '../../components/advancedSearch';
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    position:"relative"
   },
- 
+  gridContainer: {
+    marginTop: '3rem',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+  },
+
   control: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
   },
 }));
 
@@ -32,7 +36,7 @@ const Results = ({ services, coaches, title, location }) => {
   let [results, setResults] = useState(
     services.filter((i, e) => {
       if (title === i.title.toLowerCase())
-        if (location === "") return i;
+        if (location === '') return i;
         else if (location === i.location.toLowerCase()) return i;
         else return null;
     })
@@ -74,42 +78,42 @@ const Results = ({ services, coaches, title, location }) => {
 
   return (
     <Layout>
-      <div>
-        <AdvancedSearch services={services} coaches={coaches} className={classes.advance} />
-        <div className="MuiGrid-root makeStyles-root-17 MuiGrid-container MuiGrid-spacing-xs-2">
-          <div className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12'>
-            <div className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2">
-              <Grid container className={classes.root} spacing={3}>
-                <Grid item xs={12}>
-                  <Grid container justify="center" spacing={spacing}>
-                    {results
-                      .slice(
-                        (currentPage - 1) * pageSize,
-                        currentPage * pageSize
-                      )
-                      .map((card) =>
-                        coaches.map((coach) =>
-                          card.owner === coach._id ? (
-                            <Grid key={card._id} onClick={() => handleClick(coach, card)} item>
-                              <Card
-                                card={card}
-                                coachName={coach}
-                                key={card._id}
-                              />
-                            </Grid>
-                          ) : null
-                        )
-                      )}
+      <div className='container'>
+        <AdvancedSearch
+          services={services}
+          coaches={coaches}
+          className={classes.advance}
+        />
+
+        <Grid
+          container
+          spacing={10}
+          className={classes.gridContainer}
+          justify='center'
+        >
+          {results
+            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+            .map((card) =>
+              coaches.map((coach) =>
+                card.owner === coach._id ? (
+                  <Grid
+                    key={card._id}
+                    onClick={() => handleClick(coach, card)}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                  >
+                    <Card card={card} coachName={coach} key={card._id} />
                   </Grid>
-                </Grid>
-              </Grid>
-            </div>
-          </div>
-        </div>
+                ) : null
+              )
+            )}
+        </Grid>
       </div>
-      <div className="pagination">
+      <div className='pagination'>
         <Pagination
-          className="pagination"
+          className='pagination'
           itemsCount={results.length}
           pageSize={pageSize}
           onPageChange={handlePageChange}
