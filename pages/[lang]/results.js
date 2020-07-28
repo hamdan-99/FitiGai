@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
-import AdvancedSearch from "../../components/advancedSearch";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
