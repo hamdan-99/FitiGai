@@ -37,7 +37,9 @@ export default function Search() {
     <div className='searchPage'>
       <section className='banner text-center'>
         <h1>
-          {t('FindA').toUpperCase()} <span className='banner-blue'>{t('SportsCoach').toUpperCase()} </span>{t('NearYou').toUpperCase()}{' '}
+          {t('FindA').toUpperCase()}{' '}
+          <span className='banner-blue'>{t('SportsCoach').toUpperCase()} </span>
+          {t('NearYou').toUpperCase()}{' '}
         </h1>
         <p>{t('WeProvideYouWithTheBestService')}</p>
         <div className='search-info text-center'>
@@ -68,7 +70,7 @@ export default function Search() {
       <style jsx>
         {`
           .searchPage {
-            height: 90vh;
+            height: 91vh;
           }
           .banner h1 {
             color: #fff;
