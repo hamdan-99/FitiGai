@@ -29,7 +29,13 @@ const strings = {
     ContactMe: 'Contact Me',
     DontHaveAccount: "Don't have an account?",
     AlreadyHaveAccount: "Already have an account?",
-    AgreeTermsAndServices: "I agree to the terms of services"
+    AgreeTermsAndServices: "I agree to the terms of services",
+    Search: 'Search',
+    Required: 'Required',
+    FindA: 'Find A',
+    SportsCoach: 'Sports Coach',
+    NearYou: 'Near You',
+    WeProvideYouWithTheBestService: 'We provide you with the best sports coaches in Belgium'
 
   },
   fr: {
@@ -61,8 +67,13 @@ const strings = {
     ContactMe: 'Contactez-moi',
     DontHaveAccount: "Vous n'avez pas de compte?",
     AlreadyHaveAccount: "Vous avez déjà un compte?",
-    AgreeTermsAndServices: "J'accepte les conditions de service"
-
+    AgreeTermsAndServices: "J'accepte les conditions de service",
+    Search: 'Recherche',
+    Required: 'Nécessaire',
+    FindA: 'Trouvez Un',
+    SportsCoach: 'Entraîneur Sportif',
+    NearYou: 'Près De Chez Vous',
+    WeProvideYouWithTheBestService: 'Nous mettons à votre disposition les meilleurs entraîneurs sportifs de Belgique'
 
   },
   nl: {
@@ -94,9 +105,13 @@ const strings = {
     ContactMe: 'Contact Me',
     DontHaveAccount: "Heb je geen account?",
     AlreadyHaveAccount: "Heb je al een account?",
-    AgreeTermsAndServices: "Ik ga akkoord met de voorwaarden van de diensten"
-
-
+    AgreeTermsAndServices: "Ik ga akkoord met de voorwaarden van de diensten",
+    Search: 'Zoeken',
+    Required: 'Verplicht',
+    FindA: 'Zoek Een',
+    SportsCoach: 'Sportcoach',
+    NearYou: 'Bij U In De Buurt',
+    WeProvideYouWithTheBestService: 'Wij bieden u de beste sportcoaches van België aan'
 
   }
 }
