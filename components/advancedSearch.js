@@ -17,6 +17,25 @@ class AdvancedSearch extends Component {
     this.setState({ services: this.props.services });
     this.setState({ coaches: this.props.coaches });
   }
+  componentDidUpdate(prevState) {
+    if (this.state.result !== 0) {
+      if (prevState.result !== this.state.result) {
+        this.props.result.as = [...this.state.result];
+      }else{
+        return null;
+      }
+      console.log(
+        "parent",
+        this.props.result,
+        "result",
+        this.state.result,
+        "result",
+        this.state.sport
+      );
+    } else {
+      return null;
+    }
+  }
 
   handleChangeSport = (e) => {
     e.preventDefault();
@@ -112,7 +131,7 @@ class AdvancedSearch extends Component {
     e.preventDefault();
     // this is result of sport and language and location
     const results = [];
-  
+
     const { sport, language, location, maxPrice, minPrice, error } = this.state;
     sport.map((service) =>
       language.map((lang) =>
@@ -120,6 +139,7 @@ class AdvancedSearch extends Component {
           if (service.location.toLowerCase() === loc) {
             if (service.owner === lang) {
               results.push(service);
+              this.setState({ result: results });
             } else {
               return null;
             }
@@ -129,21 +149,64 @@ class AdvancedSearch extends Component {
         })
       )
     );
-   
-    this.setState({ result: results });
+    if (results.length === 0) {
+      if (language.length === 0) {
+        if (location.length === 0) {
+          const values = sport.values();
+          for (const value of values) {
+            results.push(value);
+            this.setState({ result: results });
+          }
+        } else if (location.length !== 0) {
+          sport.map((i) =>
+            location.map((l) => {
+              if (i.location.toLowerCase() === l) {
+                results.push(i);
+                this.setState({ result: results });
+              } else {
+                return null;
+              }
+            })
+          );
+        } else {
+          return null;
+        }
+      } else if (language.length !== 0) {
+        sport.map((i) =>
+          language.map((l) => {
+            if (i.owner === l) {
+              results.push(i);
+              this.setState({ result: results });
+            } else {
+              return null;
+            }
+          })
+        );
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+    const priceResult = [];
+    if (results.length !== 0) {
+      if (minPrice.length !== 0 && maxPrice.length !== 0) {
+        results.map((i) => {
+          if (_.inRange(i.price, minPrice, maxPrice)) {
+            priceResult.push(i);
+            this.setState({ result: priceResult });
+          } else {
+            return null;
+          }
+        });
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
   };
   render() {
-    console.log(
-      "max",
-      this.state.maxPrice,
-      "min",
-      this.state.minPrice,
-      "result",
-      this.state.result
-      // "error",
-      // this.state.error
-    );
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

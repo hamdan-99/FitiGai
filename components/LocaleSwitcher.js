@@ -18,13 +18,17 @@ const LocaleSwitcher = () => {
   )
 
   return (
-    <select value={locale} onChange={handleLocaleChange}>
-      {locales.map(locale => (
-        <option key={locale} value={locale}>
-          {languageNames[locale]}
-        </option>
-      ))}
-    </select>
+    <select value={locale} onChange={handleLocaleChange} style={{
+      border: '0', borderRadius: '20px', width: '125px', textAlign: 'center', textAlignLast: 'center'
+    }} >
+      {
+        locales.map(locale => (
+          <option key={locale} value={locale} >
+            {languageNames[locale]}
+          </option>
+        ))
+      }
+    </select >
   )
 }
 

@@ -37,9 +37,9 @@ export default function Search() {
     <div className='searchPage'>
       <section className='banner text-center'>
         <h1>
-          FIND A <span className='banner-blue'>SPORTS COACH </span>NEAR YOU{' '}
+          {t('FindA').toUpperCase()} <span className='banner-blue'>{t('SportsCoach').toUpperCase()} </span>{t('NearYou').toUpperCase()}{' '}
         </h1>
-        <p>We provide you with the best sports coaches in Belgium</p>
+        <p>{t('WeProvideYouWithTheBestService')}</p>
         <div className='search-info text-center'>
           <input
             type='text'
@@ -60,7 +60,7 @@ export default function Search() {
               type='submit'
               className='btn btn-primary'
             >
-              Search
+              {t('Search')}
             </button>
           </Link>
         </div>

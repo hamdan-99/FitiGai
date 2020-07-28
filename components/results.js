@@ -1,14 +1,14 @@
-import Card from "../../components/Cards";
-import { paginate } from "../../utils/paginate";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Layout from "../../components/Layout";
-import Pagination from "../../components/pagination";
-import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import WithLocaleWrapper from "../../hocs/withLocale";
-import useTranslation from "../../hooks/useTranslation";
-import AdvancedSearch from "../../components/advancedSearch";
+import Card from '../../components/Cards';
+import { paginate } from '../../utils/paginate';
+import { Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Layout from '../../components/Layout';
+import Pagination from '../../components/pagination';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import WithLocaleWrapper from '../../hocs/withLocale';
+import useTranslation from '../../hooks/useTranslation';
+import AdvancedSearch from '../../components/advancedSearch';
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   gridContainer: {
-    marginTop: "3rem",
-    paddingLeft: "20px",
-    paddingRight: "20px",
+    marginTop: '3rem',
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
 
   control: {
@@ -36,27 +36,11 @@ const Results = ({ services, coaches, title, location }) => {
   let [results, setResults] = useState(
     services.filter((i, e) => {
       if (title === i.title.toLowerCase())
-        if (location === "") return i;
+        if (location === '') return i;
         else if (location === i.location.toLowerCase()) return i;
         else return null;
     })
   );
-  const b = [];
-  let [a, setA] = useState({ as: [] });
-  if (a.as.length >= 0) {
-    a.as.map((i) => b.push(i));
-  } else {
-    return null;
-  }
-  useEffect(() => {
-    if (b.length !== 0 && b.length !== results.length) {
-      setResults(b);
-    } else {
-      return;
-    }
-  }, [results.length]);
-
-  console.log("set", a.as, "Dad results", results);
 
   useEffect(() => {
     if (results.length === 0)
@@ -94,11 +78,10 @@ const Results = ({ services, coaches, title, location }) => {
 
   return (
     <Layout>
-      <div className="container">
+      <div className='container'>
         <AdvancedSearch
           services={services}
           coaches={coaches}
-          result={a}
           className={classes.advance}
         />
 
@@ -106,7 +89,7 @@ const Results = ({ services, coaches, title, location }) => {
           container
           spacing={10}
           className={classes.gridContainer}
-          justify="center"
+          justify='center'
         >
           {results
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
@@ -128,14 +111,14 @@ const Results = ({ services, coaches, title, location }) => {
             )}
         </Grid>
       </div>
-      <div className="pagination">
-        {/* <Pagination
+      <div className='pagination'>
+        <Pagination
           className='pagination'
           itemsCount={results.length}
           pageSize={pageSize}
           onPageChange={handlePageChange}
           currentPage={currentPage}
-        /> */}
+        />
       </div>
     </Layout>
   );
