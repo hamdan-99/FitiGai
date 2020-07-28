@@ -107,7 +107,7 @@ const strings = {
     English: 'Engels',
     French: 'Frans',
     Dutch: 'Nederlands',
-    ContactMe: 'Contact Me',
+    ContactMe: 'Contacteer Me',
     DontHaveAccount: "Heb je geen account?",
     AlreadyHaveAccount: "Heb je al een account?",
     AgreeTermsAndServices: "Ik ga akkoord met de voorwaarden van de diensten",
