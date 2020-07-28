@@ -49,23 +49,23 @@ const ValidatedSignUpForm = ({ t, locale }) => (
       if (!values.phone) {
         errors.phone = "Required";
       } else if (!phoneRegex.test(values.phone)) {
-        errors.phone = "Invalid phone number";
+        errors.phone = "InvalidPhoneNumber";
       }
 
 
       if (!values.email) {
         errors.email = "Required";
       } else if (!validateEmail(values.email)) {
-        errors.email = "Invalid email address";
+        errors.email = "InvalidEmailAddress";
       }
 
       const passwordRegex = /(?=.*[0-9])/;
       if (!values.password) {
         errors.password = "Required";
       } else if (values.password.length < 8) {
-        errors.password = "Password must be 8 characters long.";
+        errors.password = "PasswordCharactersError";
       } else if (!passwordRegex.test(values.password)) {
-        errors.password = "Invalida password. Must contain one number";
+        errors.password = "InvalidPasword";
       }
 
       return errors;
@@ -95,9 +95,10 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               value={values.firstName}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.firstName && touched.firstName ? errors.firstName : null}
+              helperText={errors.firstName && touched.firstName ? t(errors.firstName) : null}
               error={errors.firstName && touched.firstName}
             />
+            <hr />
             <TextField
               label={t('LastName')}
               id="outlined-required"
@@ -108,10 +109,10 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               value={values.lastName}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.lastName && touched.lastName ? errors.lastName : null}
+              helperText={errors.lastName && touched.lastName ? t(errors.lastName) : null}
               error={errors.lastName && touched.lastName}
             />
-
+            <hr />
             <TextField
               label={t('Phone')}
               id="outlined-required"
@@ -122,9 +123,10 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.phone && touched.phone ? errors.phone : null}
+              helperText={errors.phone && touched.phone ? t(errors.phone) : null}
               error={errors.phone && touched.phone}
             />
+            <hr />
             <TextField
               label={t('Email')}
               id="outlined-required"
@@ -135,9 +137,10 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               value={values.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.email && touched.email ? errors.email : null}
+              helperText={errors.email && touched.email ? t(errors.email) : null}
               error={errors.email && touched.email}
             />
+            <hr />
             <TextField
               label={t("Password")}
               id="outlined-required"
@@ -148,16 +151,17 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              helperText={errors.password && touched.password ? errors.password : null}
+              helperText={errors.password && touched.password ? t(errors.password) : null}
               error={errors.password && touched.password}
             />
+            <hr />
             <p>
               <span className='terms'>
                 <input type='checkbox' />
               </span>
               {t('AgreeTermsAndServices')}
             </p>
-            <Button variant="contained" value={"Signup"} type="submit" disabled={isSubmitting} >{t("Signup")}</Button>
+            <button variant="contained" className="signup-btn" value={"Signup"} type="submit" disabled={isSubmitting} >{t("Signup")}</button>
             <hr />
             <p>
               {t('AlreadyHaveAccount')}
@@ -198,7 +202,6 @@ const ValidatedSignUpForm = ({ t, locale }) => (
               width: 100%;
               padding: 10px;
               border-radius: 20px;
-              margin: 10px 0;
               border: none;
               outline: none;
               cursor: pointer;
