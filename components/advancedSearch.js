@@ -18,23 +18,23 @@ class AdvancedSearch extends Component {
     this.setState({ coaches: this.props.coaches });
   }
   componentDidUpdate(prevState) {
-    if (this.state.result !== 0) {
-      if (prevState.result !== this.state.result) {
-        this.props.result.as = [...this.state.result];
-      }else{
-        return null;
-      }
-      console.log(
-        "parent",
-        this.props.result,
-        "result",
-        this.state.result,
-        "result",
-        this.state.sport
-      );
-    } else {
-      return null;
-    }
+    // if (this.state.result !== 0) {
+    //   if (prevState.result !== this.state.result) {
+    //     this.props.result.as = [...this.state.result];
+    //   }else{
+    //     return null;
+    //   }
+    //   console.log(
+    //     "parent",
+    //     this.props.result,
+    //     "result",
+    //     this.state.result,
+    //     "result",
+    //     this.state.sport
+    //   );
+    // } else {
+    //   return null;
+    // }
   }
 
   handleChangeSport = (e) => {

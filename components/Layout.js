@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Navbar from './Navbar';
-import Footer from './Footer';
 
 const Layout = (props) => {
   return (
@@ -68,11 +67,11 @@ const Layout = (props) => {
 
         <style jsx>{`
           .page {
-            min-height: 100vh;
+            height: 100vh;
           }
           @media screen and (max-width: 480px) {
             .page {
-              min-height: 90vh;
+              min-height: 100vh;
             }
           }
         `}</style>
@@ -82,3 +81,4 @@ const Layout = (props) => {
 };
 
 export default Layout;
+

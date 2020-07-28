@@ -6,9 +6,6 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   line-height: 1.6;
   font-size: 18px;
-  background-image: url('./backgroundImages/biking-min.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 .searchPage {
@@ -45,11 +42,4 @@ body {
   text-align: center;
   margin-left: 130px;
   margin-top: 20px;
-}
-
-.MuiGrid-root.makeStyles-root-17.MuiGrid-container.MuiGrid-spacing-xs-2 {
-  width: 1250px;
-  position: relative;
-  top: 30px;
-  left: 50px;
 }

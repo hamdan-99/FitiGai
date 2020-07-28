@@ -35,7 +35,9 @@ const strings = {
     FindA: 'Find A',
     SportsCoach: 'Sports Coach',
     NearYou: 'Near You',
-    WeProvideYouWithTheBestService: 'We provide you with the best sports coaches in Belgium'
+    WeProvideYouWithTheBestService: 'We provide you with the best sports coaches in Belgium',
+    Features: 'Features',
+    OtherServices: 'Other Services'
 
   },
   fr: {
@@ -73,15 +75,18 @@ const strings = {
     FindA: 'Trouvez Un',
     SportsCoach: 'Entraîneur Sportif',
     NearYou: 'Près De Chez Vous',
-    WeProvideYouWithTheBestService: 'Nous mettons à votre disposition les meilleurs entraîneurs sportifs de Belgique'
+    WeProvideYouWithTheBestService: 'Nous mettons à votre disposition les meilleurs entraîneurs sportifs de Belgique',
+    Features: 'Caractéristiques',
+    OtherServices: 'Autres Services'
+
 
   },
   nl: {
     Home: 'Thuis',
     About: 'Over',
     Contact: 'Contact',
-    Login: 'Inloggen',
-    Signup: 'Aanmelden',
+    Login: 'Aanmelden',
+    Signup: 'Resgisteren',
     Logout: 'Uitloggen',
     Sport: 'Sport',
     Location: 'Locatie',
@@ -102,7 +107,7 @@ const strings = {
     English: 'Engels',
     French: 'Frans',
     Dutch: 'Nederlands',
-    ContactMe: 'Contact Me',
+    ContactMe: 'Contacteer Me',
     DontHaveAccount: "Heb je geen account?",
     AlreadyHaveAccount: "Heb je al een account?",
     AgreeTermsAndServices: "Ik ga akkoord met de voorwaarden van de diensten",
@@ -111,8 +116,9 @@ const strings = {
     FindA: 'Zoek Een',
     SportsCoach: 'Sportcoach',
     NearYou: 'Bij U In De Buurt',
-    WeProvideYouWithTheBestService: 'Wij bieden u de beste sportcoaches van België aan'
-
+    WeProvideYouWithTheBestService: 'Wij bieden u de beste sportcoaches van België aan',
+    Features: 'Kenmerken',
+    OtherServices: 'Andere Diensten'
   }
 }
 
