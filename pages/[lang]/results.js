@@ -76,9 +76,7 @@ const Results = ({ services, coaches, title, location }) => {
     <Layout>
       <div>
         <AdvancedSearch services={services} coaches={coaches} className={classes.advance} />
-        <div className="MuiGrid-root makeStyles-root-17 MuiGrid-container MuiGrid-spacing-xs-2">
-          <div className='MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12'>
-            <div className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2">
+      
               <Grid container className={classes.root} spacing={3}>
                 <Grid item xs={12}>
                   <Grid container justify="center" spacing={spacing}>
@@ -103,9 +101,7 @@ const Results = ({ services, coaches, title, location }) => {
                   </Grid>
                 </Grid>
               </Grid>
-            </div>
-          </div>
-        </div>
+                            
       </div>
       <div className="pagination">
         <Pagination

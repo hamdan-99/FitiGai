@@ -80,7 +80,6 @@ const Cards = (props) => {
               position: absolute;
               bottom: 0px;
             }
-            @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@1,600&display=swap");
             #info1 {
               font-family: "Cabin", sans-serif;
               position: relative;
