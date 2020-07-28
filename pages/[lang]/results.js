@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   gridContainer: {
-    marginTop: "3rem",
-    paddingLeft: "40px",
-    paddingRight: "40px",
+    marginTop: '5vh',
+    paddingLeft: '40px',
+    paddingRight: '40px',
   },
 }));
 
@@ -214,12 +214,17 @@ const Results = ({ services, coaches, title, location, props }) => {
   };
 
 
-  let [pageSize, SetPageSize] = useState(9);
+  let [pageSize, SetPageSize] = useState(12);
   let [currentPage, SetCurrentPage] = useState(1);
 
+
   useEffect(() => {
+    console.log('PASSED RESULTS', results)
     SetCurrentPage(1);
+    if (results.length === 0)
+      setResults(services.map((i, e) => (e < 32 ? i : null)));
   }, [results]);
+
 
   const handlePageChange = (page) => {
     SetCurrentPage(page);
