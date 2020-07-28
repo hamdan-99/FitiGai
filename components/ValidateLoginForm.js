@@ -71,6 +71,7 @@ const ValidatedLoginForm = ({ t, locale }) => (
           <form onSubmit={handleSubmit} >
             <TextField
               label={t('Email')}
+              m="2rem"
               id="outlined-required"
               className='input-box'
               name="email"
