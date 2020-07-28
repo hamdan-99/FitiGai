@@ -14,7 +14,7 @@ const Cards = (props) => {
         <div className='sub-content'>
           <h1>{`${props.coachName.firstName}`}</h1>
 
-          <p>{props.card.title}</p>
+          <p>{props.card.title.toUpperCase()}</p>
           <span className='location'>
             <i className='fa fa-map-marker' aria-hidden='true'></i>
             {props.card.location}
@@ -54,7 +54,7 @@ const Cards = (props) => {
 
           .container .profile-img {
             width: 100px;
-            height: 100px;
+            height: 110px;
             border-radius: 50%;
             position: absolute;
             top: 10px;

@@ -10,11 +10,11 @@ function CoachProfile(main_props) {
       <div className="col-md-3 my-auto">
         <img
           className="mx-auto d-block h-75 w-75 rounded"
-          src="/images/mustaph.jpg"
+          src={`/images/${props.firstName.toUpperCase()}.png`}
           alt="my_profile_photo"
         />
-        <h5 className=" text-center mt-2">{props.name}</h5>
-        <p className="text-center font-weight-light">{props.title}</p>
+        <h5 className=" text-center mt-2">{props.firstName + ' ' + props.lastName}</h5>
+        <p className="text-center font-weight-light">{props.title.toUpperCase()}</p>
       </div>
       <div className="col-md-3 pr-5 ">
         <h6 className="text-center">{t('AboutMe')}</h6>
@@ -54,8 +54,8 @@ function CoachProfile(main_props) {
             <hr></hr>
             <span className="font-weight-bold">{(props.coachServices.length > 0 && (
               <ul>
-                {props.coachServices.map((i) => (
-                  <li key={i.title}>{i.title}</li>
+                {props.coachServices.map((i) => i.title).filter((item, i, ar) => ar.indexOf(item) === i).map((i) => (
+                  <li key={i}>{i.toUpperCase()}</li>
                 ))}
               </ul>
             )) ||

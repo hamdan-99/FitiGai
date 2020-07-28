@@ -39,7 +39,8 @@ class Profile extends Component {
     return (
       <div>
         <Layout>
-          <CoachProfile name={props.firstName + ' ' + props.lastName}
+          <CoachProfile firstName={props.firstName}
+            lastName={props.lastName}
             title={props.title}
             location={props.location}
             language={props.lang.toUpperCase()}
