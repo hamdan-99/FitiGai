@@ -4,7 +4,6 @@ import cookie from 'js-cookie';
 import Router from 'next/router';
 import useTranslation from '../hooks/useTranslation';
 import LocaleSwitcher from './LocaleSwitcher';
-import CoachProfile from '../components/CoachPageDesign'
 
 const Navbar = () => {
   const cookieToken = cookie.get('token');
@@ -41,7 +40,6 @@ const Navbar = () => {
           </button>
           <div className='collapse navbar-collapse' id='navbarNav'>
             <div className='navbar-nav ml-auto'>
-
               {!loggedIn && (
                 <Link href='/[lang]/login' as={`/${locale}/login`}>
                   <button className='btn btn-outline-primary'>
@@ -98,6 +96,7 @@ const Navbar = () => {
           .btn-success {
             color: #fff;
             border-radius: 20px;
+            margin-right: 10px;
           }
           .logoName:hover {
             box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
@@ -111,9 +110,20 @@ const Navbar = () => {
           #fit {
             color: #fff;
           }
+          @media screen and (max-width: 480px) {
+            .btn-success {
+              width: 30%;
+              margin: 5px 0;
+            }
+            .btn-outline-primary {
+              width: 30%;
+              margin: 5px 0;
+            }
+          }
         `}
       </style>
     </section>
   );
 };
 export default Navbar;
+

@@ -37,8 +37,11 @@ const strings = {
     NearYou: 'Near You',
     WeProvideYouWithTheBestService: 'We provide you with the best sports coaches in Belgium',
     Features: 'Features',
-    OtherServices: 'Other Services'
-
+    OtherServices: 'Other Services',
+    InvalidPhoneNumber: 'Invalid Phone Number',
+    InvalidEmailAddress: 'Invalid Email Address',
+    PasswordCharactersError: 'Password must be 8 characters long',
+    InvalidPasword: 'Invalid password. Must contain one number'
   },
   fr: {
     Home: 'Accueil',
@@ -77,7 +80,11 @@ const strings = {
     NearYou: 'Près De Chez Vous',
     WeProvideYouWithTheBestService: 'Nous mettons à votre disposition les meilleurs entraîneurs sportifs de Belgique',
     Features: 'Caractéristiques',
-    OtherServices: 'Autres Services'
+    OtherServices: 'Autres Services',
+    InvalidPhoneNumber: 'Numéro de téléphone invalide',
+    InvalidEmailAddress: 'Email invalide',
+    PasswordCharactersError: 'Le mot de passe doit comporter 8 caractères',
+    InvalidPasword: 'Mot de passe invalide. Doit contenir un numéro'
 
 
   },
@@ -118,7 +125,11 @@ const strings = {
     NearYou: 'Bij U In De Buurt',
     WeProvideYouWithTheBestService: 'Wij bieden u de beste sportcoaches van België aan',
     Features: 'Kenmerken',
-    OtherServices: 'Andere Diensten'
+    OtherServices: 'Andere Diensten',
+    InvalidPhoneNumber: 'Ongeldig telefoonnummer',
+    InvalidEmailAddress: 'Ongeldig e-mailadres',
+    PasswordCharactersError: 'Wachtwoord moet 8 karakters lang zijn',
+    InvalidPasword: 'Ongeldig wachtwoord. Moet één nummer bevatten'
   }
 }
 
