@@ -15,8 +15,7 @@ function Page() {
       time > -1
         ? setTime(time--)
         : router.push({
-          pathname: "/[lang]",
-          asPath: `/${locale}`,
+          pathname: `/${locale}`,
           query: { shallow: true }
         });
     }, 2000);

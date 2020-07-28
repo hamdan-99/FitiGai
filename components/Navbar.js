@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 import Router from 'next/router';
 import useTranslation from '../hooks/useTranslation';
 import LocaleSwitcher from './LocaleSwitcher';
+import CoachProfile from '../components/CoachPageDesign'
 
 const Navbar = () => {
   const cookieToken = cookie.get('token');
