@@ -1,3 +1,2 @@
 const data = [];
-
-exports.moldule = data ;
+module.exports = data;
