@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   gridContainer: {
-    marginTop: '5vh',
-    paddingLeft: '40px',
-    paddingRight: '40px',
+    marginTop: "5vh",
+    paddingLeft: "40px",
+    paddingRight: "40px",
   },
 }));
 
@@ -38,26 +38,52 @@ const Results = ({ services, coaches, title, location, props }) => {
   let [sport, setSport] = useState([]);
   let [language, setLanguage] = useState([]);
   let [locations, setlocations] = useState([]);
-  let [minPrice, setMinPrice] = useState([]);
-  let [maxPrice, setMaxPrice] = useState([]);
+  let [minPrice, setMinPrice] = useState(0);
+  let [maxPrice, setMaxPrice] = useState(0);
   let [Result, setResult] = useState([]);
-  let [error, setError] = useState([]);
+
+  let [errorSport, setErrorSport] = useState("");
+  let [errorLocation, setErrorLocation] = useState("");
+  let [errorMinPrice, setErrorMinPrice] = useState("");
+  let [errorMaxPrice, setErrorMaxPrice] = useState("");
+
+  let [submit, setSubmit] = useState(false);
+
+  let [valueSport, setValueSport] = useState("");
+  let [valueLocation, setValueLocation] = useState("");
+  let [valueMinPrice, setValueMinPrice] = useState(0);
+  let [valueMaxPrice, setValueMaxPrice] = useState(0);
+
+  let [querySport, setQuerySport] = useState("");
+  let [queryLocation, setQueryLocation] = useState("");
+  let [queryMinPrice, setQueryMinPrice] = useState(0);
+  let [queryMaxPrice, setQueryMaxPrice] = useState(0);
 
   const handleChangeSport = (e) => {
     e.preventDefault();
     const sport = [];
-    const sportError = [];
     services.map((i) => {
       if (i.title.toLowerCase() === e.target.value.toLowerCase()) {
         sport.push(i);
-      } else if (i.title.toLowerCase() !== e.target.value.toLowerCase()) {
-        sportError.push(` ${e.target.value} is not supported Sport`);
       } else {
         return null;
       }
     });
+
     setSport(sport);
-    error.push(sportError[0]);
+
+    if (sport.length === 0) {
+      setErrorSport(` ${e.target.value} : is not supported `);
+    } else {
+      return null;
+    }
+    if (sport.length === 0 && submit === false) {
+      setValueSport(e.target.value);
+    } else if (sport.length === 0 && submit === true) {
+      setQuerySport(e.target.value);
+    } else {
+      return null;
+    }
   };
 
   const handleChangeLanguage = (e) => {
@@ -77,26 +103,33 @@ const Results = ({ services, coaches, title, location, props }) => {
   const handleChangeLocations = (e) => {
     e.preventDefault();
     const locations = [];
-    const locationsError = [];
+
     services.map((i) => {
       if (i.location.toLowerCase() === e.target.value.toLowerCase()) {
         locations.pop();
         locations.push(e.target.value.toLowerCase());
-      } else if (i.location.toLowerCase() !== e.target.value.toLowerCase()) {
-        locationsError.pop();
-        locationsError.push(` ${e.target.value} is not supported locations`);
       } else {
         return null;
       }
     });
+
+    if (locations.length === 0) {
+      setErrorLocation(` ${e.target.value} : is not supported `);
+    }
     setlocations(locations);
-    error.push(locationsError[0]);
+
+    if (locations.length === 0 && submit === false) {
+      setValueLocation(e.target.value);
+    } else if (locations.length === 0 && submit === true) {
+      setQueryLocation(e.target.value);
+    } else {
+      return null;
+    }
   };
 
   const handleChangePriceMin = (e) => {
     e.preventDefault();
     const minPrice = [];
-    const minError = [];
     const number = services.map((i) => i.price);
     const min = Math.min(...number);
     const max = Math.max(...number);
@@ -104,19 +137,24 @@ const Results = ({ services, coaches, title, location, props }) => {
     if (_.inRange(e.target.value, min, max)) {
       minPrice.pop();
       minPrice.push(e.target.value);
-    } else if (!_.inRange(e.target.value, min, max)) {
-      return [minError.push(`there is no less than min ${e.target.value}`)];
+    } else {
+      return setErrorMinPrice(`${e.target.value} : is out of range`);
+    }
+
+    setMinPrice(minPrice);
+
+    if (minPrice.length === 0 && submit === false) {
+      setValueMinPrice(e.target.value);
+    } else if (minPrice.length === 0 && submit === true) {
+      setQueryMinPrice(e.target.value);
     } else {
       return null;
     }
-    setMinPrice(minPrice);
-    error.push(minError[0]);
   };
 
   const handleChangePriceMax = (e) => {
     e.preventDefault();
     const maxPrice = [];
-    const maxError = [];
     const number = services.map((i) => i.price);
     const min = Math.min(...number);
     const max = Math.max(...number);
@@ -124,13 +162,18 @@ const Results = ({ services, coaches, title, location, props }) => {
     if (_.inRange(e.target.value, min, max)) {
       maxPrice.pop();
       maxPrice.push(e.target.value);
-    } else if (!_.inRange(e.target.value, min, max)) {
-      maxError.push(`there is no greater than  ${e.target.value}`);
+    } else {
+      return setErrorMaxPrice(`${e.target.value} : is out of range`);
+    }
+    setMaxPrice(maxPrice);
+
+    if (maxPrice.length === 0 && submit === false) {
+      setValueMaxPrice(e.target.value);
+    } else if (maxPrice.length === 0 && submit === true) {
+      setQueryMaxPrice(e.target.value);
     } else {
       return null;
     }
-    setMaxPrice(maxPrice);
-    error.push(maxError[0]);
   };
 
   const handleSubmit = (e) => {
@@ -200,6 +243,8 @@ const Results = ({ services, coaches, title, location, props }) => {
           if (_.inRange(i.price, minPrice, maxPrice)) {
             priceresult.push(i);
             setResult(priceresult);
+          } else if (!_.inRange(i.price, minPrice, maxPrice)) {
+            setResult("There is no price in this range");
           } else {
             return null;
           }
@@ -212,18 +257,14 @@ const Results = ({ services, coaches, title, location, props }) => {
     }
   };
 
-
   let [pageSize, SetPageSize] = useState(12);
   let [currentPage, SetCurrentPage] = useState(1);
 
-
   useEffect(() => {
-    console.log('PASSED RESULTS', results)
     SetCurrentPage(1);
     if (results.length === 0)
       setResults(services.map((i, e) => (e < 32 ? i : null)));
   }, [results]);
-
 
   const handlePageChange = (page) => {
     SetCurrentPage(page);
@@ -246,7 +287,6 @@ const Results = ({ services, coaches, title, location, props }) => {
       },
     });
   };
-  console.log("result", Result);
 
   useEffect(() => {
     if (Result.length !== 0) {
@@ -254,72 +294,114 @@ const Results = ({ services, coaches, title, location, props }) => {
     }
   }, [Result]);
 
+  useEffect(() => {
+    if (valueSport !== querySport) {
+      setSubmit(false);
+    } else if (valueLocation !== queryLocation) {
+      setSubmit(false);
+    }
+  }, [querySport, queryLocation]);
+
   return (
     <Layout>
       <div className="wrapper">
         <div className="container">
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className="sport">
-                <input onChange={handleChangeSport} placeholder="Sport" />
-                {/* List Of Sports we could use */}
-                {/* tennis      */}
-                {/* Volleyball  */}
-                {/* Football    */}
-                {/* Badminton   */}
-                {/* Disability  */}
-                {/* Diving      */}
-                {/* Boxing      */}
-                {/* Judo        */}
-                {/* Swimming    */}
-                {/* Table Tennis*/}
-                {/* Taekwondo   */}
-                {/* Wrestling   */}
-              </div>
+          <div className="searchMain">
+            <div className="advancedSearch">
+              <form onSubmit={handleSubmit}>
+                <div className="sport">
+                  <div className="form-group row">
+                    <div className="col-sm-10">
+                      <input
+                        className="form-control"
+                        onChange={handleChangeSport}
+                        placeholder="Sport"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    {submit && sport.length === 0 && (
+                      <div className="Error">{errorSport}</div>
+                    )}
+                  </div>
+                </div>
 
-              <div className="language">
-                <select onChange={handleChangeLanguage}>
-                  <option defaultValue>Choose Language</option>
-                  <option value="en">English</option>
-                  <option value="fr">French</option>
-                </select>
+                <div className="language">
+                  <div className="form-group row">
+                    <div className="col-md-12">
+                      <select
+                        className="form-control"
+                        onChange={handleChangeLanguage}
+                      >
+                        <option defaultValue>Choose Language</option>
+                        <option value="en">English</option>
+                        <option value="fr">French</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-                {/*Languages  */}
-                {/* Dutch  */}
-                {/* French */}
-                {/* English*/}
-              </div>
+                <div className="locations">
+                  <div className="form-group row">
+                    <div className="col-sm-10">
+                      <input
+                        className="form-control"
+                        onChange={handleChangeLocations}
+                        placeholder="locations"
+                      />
+                    </div>
+                  </div>
+                  {submit && locations.length === 0 && (
+                    <div className="Error">
+                      <p>{errorLocation}</p>
+                    </div>
+                  )}
+                </div>
 
-              <div className="locations">
-                <input
-                  onChange={handleChangeLocations}
-                  placeholder="locations"
-                />
-                {/*Languages   */}
-                {/* brussels */}
-                {/*  Leuven  */}
-                {/*   Paris  */}
-              </div>
+                <div className="priceMin">
+                  <div className="form-group row">
+                    <div className="col-sm-10">
+                      <input
+                        className="form-control"
+                        onChange={handleChangePriceMin}
+                        placeholder="Min Price"
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                  {submit && errorMinPrice && (
+                    <div className="Error">
+                      <p>{errorMinPrice}</p>
+                    </div>
+                  )}
+                </div>
 
-              <div className="priceMin">
-                <input
-                  onChange={handleChangePriceMin}
-                  placeholder="Min Price"
-                  type="number"
-                />
-              </div>
-
-              <div className="priceMax">
-                <input
-                  onChange={handleChangePriceMax}
-                  placeholder="Max Price"
-                  type="number"
-                />
-              </div>
-              <button>Search</button>
-            </form>
+                <div className="priceMax">
+                  <div className="form-group row">
+                    <div className="col-sm-10">
+                      <input
+                        className="form-control"
+                        onChange={handleChangePriceMax}
+                        placeholder="Max Price"
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                  {submit && errorMaxPrice && (
+                    <div className="Error">
+                      <p>{errorMaxPrice}</p>
+                    </div>
+                  )}
+                </div>
+                <button
+                  className="btn btn-primary "
+                  onClick={() => setSubmit(true)}
+                >
+                  Search
+                </button>
+              </form>
+            </div>
           </div>
-
           <Grid
             container
             spacing={5}
@@ -360,6 +442,50 @@ const Results = ({ services, coaches, title, location, props }) => {
           {`
             .wrapper {
               background-color: aliceblue;
+            }
+            .Error {
+              color: red;
+            }
+            .searchMain {
+              position: relative;
+              padding: 15px;
+              background-color: rgba(0, 0, 0, 0.096);
+              left: -40px;
+              border-radius: 20px;
+              max-width: 1200px;
+              box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+              top: 10px;
+            }
+            .searchMain:hover {
+              box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.445);
+            }
+            .advancedSearch {
+              position: relative;
+              max-height: 75px;
+              border-radius: 10px;
+            }
+            .form-control:hover {
+              box-shadow: 0 2px 3px 0 rgba(95, 61, 248, 0.733);
+            }
+            .sport {
+              float: left;
+              margin-right: -35px;
+            }
+            .language {
+              float: left;
+              margin-right: 7px;
+            }
+            .locations {
+              float: left;
+              margin-right: -35px;
+            }
+            .priceMin {
+              float: left;
+              margin-right: -35px;
+            }
+            .priceMax {
+              float: left;
+              margin-right: -35px;
             }
           `}
         </style>

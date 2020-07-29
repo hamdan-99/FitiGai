@@ -17,19 +17,18 @@ body {
 @keyframes animate {
   0%,
   100% {
-    background-image: url('./backgroundImages/wesley.jpg');
+    background-image: url("./backgroundImages/wesley.jpg");
   }
   25% {
-    background-image: url('./backgroundImages/braden.jpg');
+    background-image: url("./backgroundImages/braden.jpg");
   }
   50% {
-    background-image: url('./backgroundImages/john.jpg');
+    background-image: url("./backgroundImages/john.jpg");
   }
   75% {
-    background-image: url('./backgroundImages/scott.jpg');
+    background-image: url("./backgroundImages/scott.jpg");
   }
 }
-
 
 .lanLigst {
   background-color: rgba(8, 255, 62, 0.185);
@@ -42,6 +41,8 @@ body {
 .pagination {
   position: justify;
   text-align: center;
-  margin-left: 130px;
+  margin-left: 250px;
   margin-top: 20px;
 }
+
+
