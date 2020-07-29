@@ -48,6 +48,7 @@ export default function Search() {
             className='form-control'
             placeholder={t('Sport')}
             onChange={(e) => setTitile(e.target.value)}
+
           />
           <input
             type='text'

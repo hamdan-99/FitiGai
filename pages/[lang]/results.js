@@ -33,8 +33,7 @@ const Results = ({ services, coaches, title, location, props }) => {
       if (title === i.title.toLowerCase()) {
         if (location === "") return i;
         else if (location === i.location.toLowerCase()) return i;
-      } else if (title !== i.title.toLowerCase()) return e < 32;
-      else return null;
+      } else return null;
     })
   );
 
@@ -114,14 +113,11 @@ const Results = ({ services, coaches, title, location, props }) => {
         locations.pop();
         locations.push(e.target.value.toLowerCase());
       } else {
-        return null;
+        return setErrorLocation(` ${e.target.value} : is not supported `);
       }
     });
-
-    if (locations.length === 0) {
-      setErrorLocation(` ${e.target.value} : is not supported `);
-    }
-    setlocations(locations);
+    setlocations(locations);  
+    
 
     if (locations.length === 0 && submit === false) {
       setValueLocation(e.target.value);
@@ -143,13 +139,11 @@ const Results = ({ services, coaches, title, location, props }) => {
       minPrice.pop();
       minPrice.push(e.target.value);
     } else {
-      return setErrorMinPrice(`${e.target.value} : is out of range`)
+      return setErrorMinPrice(`${e.target.value} : is out of range`);
     }
 
     setMinPrice(minPrice);
-    minPrice.length !== 0
-      ? setErrorMinPrice('')
-      : null;
+    minPrice.length !== 0 ? setErrorMinPrice("") : null;
 
     if (minPrice.length === 0 && submit === false) {
       setValueMinPrice(e.target.value);
@@ -170,13 +164,11 @@ const Results = ({ services, coaches, title, location, props }) => {
     if (_.inRange(e.target.value, min, max)) {
       maxPrices.pop();
       maxPrices.push(e.target.value);
-    } else   {
+    } else {
       return setErrorMaxPrice(`${e.target.value} : is out of range`);
     }
     setMaxPrice(maxPrices);
-    maxPrices.length !== 0
-    ? setErrorMaxPrice('')
-    : null;
+    maxPrices.length !== 0 ? setErrorMaxPrice("") : null;
     if (maxPrice.length === 0 && submit === false) {
       setValueMaxPrice(e.target.value);
     } else if (maxPrice.length === 0 && submit === true) {
@@ -327,6 +319,7 @@ const Results = ({ services, coaches, title, location, props }) => {
                         className="form-control"
                         onChange={handleChangeSport}
                         placeholder="Sport"
+                        type="text"
                       />
                     </div>
                   </div>
@@ -344,7 +337,7 @@ const Results = ({ services, coaches, title, location, props }) => {
                         className="form-control"
                         onChange={handleChangeLanguage}
                       >
-                        <option defaultValue>Choose Language</option>
+                        <option defaultValue>Languages</option>
                         <option value="en">English</option>
                         <option value="fr">French</option>
                       </select>
@@ -359,6 +352,7 @@ const Results = ({ services, coaches, title, location, props }) => {
                         className="form-control"
                         onChange={handleChangeLocations}
                         placeholder="locations"
+                        type="text"
                       />
                     </div>
                   </div>
@@ -454,47 +448,6 @@ const Results = ({ services, coaches, title, location, props }) => {
             }
             .Error {
               color: red;
-            }
-            .searchMain {
-              position: relative;
-              padding: 15px;
-              background-color: rgba(0, 0, 0, 0.096);
-              left: -40px;
-              border-radius: 20px;
-              max-width: 1200px;
-              box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
-              top: 10px;
-            }
-            .searchMain:hover {
-              box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.445);
-            }
-            .advancedSearch {
-              position: relative;
-              max-height: 75px;
-              border-radius: 10px;
-            }
-            .form-control:hover {
-              box-shadow: 0 2px 3px 0 rgba(95, 61, 248, 0.733);
-            }
-            .sport {
-              float: left;
-              margin-right: -35px;
-            }
-            .language {
-              float: left;
-              margin-right: 7px;
-            }
-            .locations {
-              float: left;
-              margin-right: -35px;
-            }
-            .priceMin {
-              float: left;
-              margin-right: -35px;
-            }
-            .priceMax {
-              float: left;
-              margin-right: -35px;
             }
           `}
         </style>
