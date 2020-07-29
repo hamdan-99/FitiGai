@@ -460,16 +460,7 @@ const Results = ({ services, coaches, title, location }) => {
     }
   }, [querySport, queryLocation]);
 
-  console.log(
-    "errorMaxPrice",
-    errorMaxPrice,
-    "errorMinPrice",
-    errorMinPrice,
-    "errorSport",
-    errorSport,
-    "errorLocation",
-    errorLocation
-  );
+
   return (
     <Layout>
       <div className="wrapper">
