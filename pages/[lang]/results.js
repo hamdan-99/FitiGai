@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import WithLocaleWrapper from "../../hocs/withLocale";
 import useTranslation from "../../hooks/useTranslation";
+import { paginate } from "./../../utils/paginate";
+import _ from "lodash";
 
 const urlEndpoint = `https://fitigai-api.herokuapp.com/v1/`;
 
@@ -35,6 +37,10 @@ const Results = ({ services, coaches, title, location, props }) => {
       else return null;
     })
   );
+
+  let [itemCount, setItemCount] = useState(results.length);
+  let [pageSize, SetPageSize] = useState(12);
+  let [currentPage, SetCurrentPage] = useState(1);
   let [sport, setSport] = useState([]);
   let [language, setLanguage] = useState([]);
   let [locations, setlocations] = useState([]);
@@ -61,21 +67,20 @@ const Results = ({ services, coaches, title, location, props }) => {
 
   const handleChangeSport = (e) => {
     e.preventDefault();
-    const sport = [];
+    const sportTitle = [];
     services.map((i) => {
       if (i.title.toLowerCase() === e.target.value.toLowerCase()) {
-        sport.push(i);
+        sportTitle.push(i);
       } else {
-        return null;
+        return;
       }
     });
-
-    setSport(sport);
+    setSport(sportTitle);
 
     if (sport.length === 0) {
       setErrorSport(` ${e.target.value} : is not supported `);
     } else {
-      return null;
+      return;
     }
     if (sport.length === 0 && submit === false) {
       setValueSport(e.target.value);
@@ -138,11 +143,12 @@ const Results = ({ services, coaches, title, location, props }) => {
       minPrice.pop();
       minPrice.push(e.target.value);
     } else {
-      return setErrorMinPrice(`${e.target.value} : is out of range`);
+      return null;
     }
 
     setMinPrice(minPrice);
-
+    if (minPrice.length === 0)
+      setErrorMinPrice(`${e.target.value} : is out of range`);
     if (minPrice.length === 0 && submit === false) {
       setValueMinPrice(e.target.value);
     } else if (minPrice.length === 0 && submit === true) {
@@ -243,25 +249,19 @@ const Results = ({ services, coaches, title, location, props }) => {
           if (_.inRange(i.price, minPrice, maxPrice)) {
             priceresult.push(i);
             setResult(priceresult);
-          } else if (!_.inRange(i.price, minPrice, maxPrice)) {
-            setResult("There is no price in this range");
           } else {
-            return null;
+            return;
           }
         });
       } else {
-        return null;
+        return;
       }
     } else {
-      return null;
+      return;
     }
   };
 
-  let [pageSize, SetPageSize] = useState(12);
-  let [currentPage, SetCurrentPage] = useState(1);
-
   useEffect(() => {
-    SetCurrentPage(1);
     if (results.length === 0)
       setResults(services.map((i, e) => (e < 32 ? i : null)));
   }, [results]);
@@ -289,8 +289,15 @@ const Results = ({ services, coaches, title, location, props }) => {
   };
 
   useEffect(() => {
+    
+  }, [results]);
+
+  useEffect(() => {
     if (Result.length !== 0) {
+      setItemCount(Result.length);
       setResults(Result);
+    } else {
+      return;
     }
   }, [Result]);
 
@@ -299,6 +306,8 @@ const Results = ({ services, coaches, title, location, props }) => {
       setSubmit(false);
     } else if (valueLocation !== queryLocation) {
       setSubmit(false);
+    } else {
+      return;
     }
   }, [querySport, queryLocation]);
 
@@ -408,8 +417,7 @@ const Results = ({ services, coaches, title, location, props }) => {
             justify="center"
             className={classes.gridContainer}
           >
-            {results
-              .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+            {paginate(results, currentPage, pageSize)
               .map((card) =>
                 coaches.map((coach) =>
                   card.owner === coach._id ? (
@@ -431,7 +439,7 @@ const Results = ({ services, coaches, title, location, props }) => {
           <div className="pagination">
             <Pagination
               className="pagination"
-              itemsCount={results.length}
+              itemsCount={itemCount}
               pageSize={pageSize}
               onPageChange={handlePageChange}
               currentPage={currentPage}

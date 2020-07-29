@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import _ from "lodash";
 
 const Pagination = (props) => {
-  const [pagesCount, setPagesCount] = useState(Math.ceil(props.itemsCount / props.pageSize));
-  const [pages, setPages] = useState(_.range(1, pagesCount + 1))
-  if (pagesCount === 1)
-    return null;
-  else
+  console.log('count',props)
+  const pagesCount = Math.ceil(props.itemsCount / props.pageSize);
+  if (pagesCount === 1) return null;
+  const pages= _.range(1, pagesCount + 1);
+
+
+ 
     return (
       <nav aria-label="Page navigation example">
         <ul className="pagination">
