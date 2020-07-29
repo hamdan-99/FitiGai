@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Results = ({ services, coaches, title, location, props }) => {
+const Results = ({ services, coaches, title, location }) => {
   const router = useRouter();
   const { locale, t } = useTranslation();
   const classes = useStyles();
@@ -36,13 +36,12 @@ const Results = ({ services, coaches, title, location, props }) => {
       } else return null;
     })
   );
-
   let [itemCount, setItemCount] = useState(results.length);
   let [pageSize, SetPageSize] = useState(12);
   let [currentPage, SetCurrentPage] = useState(1);
   let [sport, setSport] = useState([]);
   let [language, setLanguage] = useState([]);
-  let [locations, setlocations] = useState([]);
+  let [locations, setLocations] = useState([]);
   let [minPrice, setMinPrice] = useState(0);
   let [maxPrice, setMaxPrice] = useState(0);
   let [Result, setResult] = useState([]);
@@ -51,6 +50,7 @@ const Results = ({ services, coaches, title, location, props }) => {
   let [errorLocation, setErrorLocation] = useState("");
   let [errorMinPrice, setErrorMinPrice] = useState("");
   let [errorMaxPrice, setErrorMaxPrice] = useState("");
+  let [errorSportLocation, setErrorSportLocation] = useState("");
 
   let [submit, setSubmit] = useState(false);
 
@@ -66,21 +66,30 @@ const Results = ({ services, coaches, title, location, props }) => {
 
   const handleChangeSport = (e) => {
     e.preventDefault();
+
+    //  results for sport title only
     const sportTitle = [];
+    //  filter the title sport from sport input
     services.map((i) => {
       if (i.title.toLowerCase() === e.target.value.toLowerCase()) {
         sportTitle.push(i);
+      } else if (e.target.value.length > 0) {
+        if (i.title.toLowerCase() !== e.target.value.toLowerCase()) {
+          return setErrorSport(` ${e.target.value} : is not supported `);
+        } else {
+          return;
+        }
+      } else if (!e.target.value) {
+        e.target.value = "";
+        return setErrorSport(` ${e.target.value} : add some sport `);
       } else {
         return;
       }
     });
+
     setSport(sportTitle);
 
-    if (sport.length === 0) {
-      setErrorSport(` ${e.target.value} : is not supported `);
-    } else {
-      return;
-    }
+    // Checking error messages and make it rendered
     if (sport.length === 0 && submit === false) {
       setValueSport(e.target.value);
     } else if (sport.length === 0 && submit === true) {
@@ -92,36 +101,81 @@ const Results = ({ services, coaches, title, location, props }) => {
 
   const handleChangeLanguage = (e) => {
     e.preventDefault();
-    // this is result for match coach sport title and langugage supported
-    const language = [];
-    coaches.map((i) => {
-      if (i.lang.slice(0, 2) === e.target.value) {
-        language.push(i._id);
+    // this is result for match coach sport title and langugages supported
+    const languages = [];
+    //  an array of all English coaches ID
+    const en = [];
+    // an array of all French Coaches ID
+    const fr = [];
+
+    //  filtering the coaches by supported languages
+    coaches.filter((i) => {
+      if (i.lang.slice(0, 2) === "en") {
+        en.push(i._id);
+      } else if (i.lang.slice(0, 2) === "fr") {
+        fr.push(i._id);
       } else {
-        return null;
+        return;
       }
     });
-    setLanguage(language);
+    // checking the language is selected by customer in Input filed with supported coaches Languages
+    if (e.target.value === "en") {
+      en.filter((i) => {
+        return languages.push(i);
+      });
+    } else if (e.target.value === "fr") {
+      fr.map((i) => {
+        languages.push(i);
+      });
+    } else {
+      en.map((e) => languages.push(e));
+      fr.map((f) => languages.push(f));
+    }
+    setLanguage(languages);
   };
 
   const handleChangeLocations = (e) => {
     e.preventDefault();
-    const locations = [];
-
-    services.map((i) => {
-      if (i.location.toLowerCase() === e.target.value.toLowerCase()) {
-        locations.pop();
-        locations.push(e.target.value.toLowerCase());
+    const point = [];
+    const err = [];
+    const values = services.values();
+    for (const value of values) {
+      if (e.target.value.length > 0) {
+        if (
+          value.location.trim().toLowerCase() ===
+          e.target.value.trim().toLowerCase()
+        ) {
+          point.pop();
+          point.push(e.target.value.trim());
+          err.pop();
+        } else if (
+          value.location.trim().toLowerCase() !==
+          e.target.value.trim().toLowerCase()
+        ) {
+          err.pop();
+          err.push(` ${e.target.value} : is not supported `);
+        } else {
+          return;
+        }
       } else {
-        return setErrorLocation(` ${e.target.value} : is not supported `);
+        return;
       }
-    });
-    setlocations(locations);  
-    
-
-    if (locations.length === 0 && submit === false) {
+      if (point.length !== 0) {
+        if (err.length == 0) {
+          err.pop();
+          setLocations(point[0]);
+        } else if (point.length != 0) {
+          err.pop();
+        } else {
+          return null;
+        }
+      } else {
+        setErrorLocation(err);
+      }
+    }
+    if (locations != null && submit === false) {
       setValueLocation(e.target.value);
-    } else if (locations.length === 0 && submit === true) {
+    } else if (locations != null && submit === true) {
       setQueryLocation(e.target.value);
     } else {
       return null;
@@ -180,81 +234,182 @@ const Results = ({ services, coaches, title, location, props }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // this is result of sport and language and locations
-    const result = [];
-
-    sport.map((service) =>
-      language.map((lang) =>
-        locations.map((loc) => {
-          if (service.location.toLowerCase() === loc) {
-            if (service.owner === lang) {
-              result.push(service);
-              setResult(result);
-            } else {
-              return null;
-            }
-          } else {
-            return null;
-          }
-        })
-      )
-    );
-    if (result.length === 0) {
-      if (language.length === 0) {
-        if (locations.length === 0) {
-          const values = sport.values();
-          for (const value of values) {
-            result.push(value);
-            setResult(result);
-          }
-        } else if (locations.length !== 0) {
-          sport.map((i) =>
-            locations.map((l) => {
-              if (i.location.toLowerCase() === l) {
-                result.push(i);
-                setResult(result);
-              } else {
-                return null;
-              }
-            })
-          );
-        } else {
-          return null;
-        }
-      } else if (language.length !== 0) {
-        sport.map((i) =>
-          language.map((l) => {
-            if (i.owner === l) {
-              result.push(i);
-              setResult(result);
-            } else {
-              return null;
-            }
-          })
-        );
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-    const priceresult = [];
-    if (result.length !== 0) {
-      if (minPrice.length !== 0 && maxPrice.length !== 0) {
-        result.map((i) => {
-          if (_.inRange(i.price, minPrice, maxPrice)) {
-            priceresult.push(i);
-            setResult(priceresult);
-          } else {
-            return;
-          }
-        });
+    //  search only Services based on Sports Title
+    const sportResults = [];
+    const sportTitles = sport.values();
+    for (const sportTitle of sportTitles) {
+      if (sportTitle) {
+        sportResults.push(sportTitle);
       } else {
         return;
       }
-    } else {
-      return;
+      setResults(sportResults);
     }
+    //  search only Coaches based on Languages
+    const languageCoaches = language.values();
+    const languageResults = [];
+    for (const lang of languageCoaches) {
+      services.map((service) => {
+        if (lang === service.owner) {
+          languageResults.push(service);
+        } else {
+          return;
+        }
+      });
+      setResults(languageResults);
+    }
+
+    //  search only Services based on Location
+    const locationsResults = [];
+    services.map((service, e) => {
+      if (locations.toLowerCase() === service.location.toLowerCase()) {
+        locationsResults.push(service);
+      } else {
+        return;
+      }
+    });
+    setResults(locationsResults);
+
+    //  search only Services based on Price
+    const priceResult = [];
+    services.map((service) => {
+      if (_.inRange(service.price, minPrice, maxPrice)) {
+        priceResult.push(service);
+      } else {
+        return;
+      }
+    });
+    setResults(priceResult);
+
+    //  search only Services based on Sport Title && Language
+    const sportLang = [];
+    for (const serviceTitle of sportTitles) {
+      language.map((lang) => {
+        if (serviceTitle.owner === lang) {
+          sportLang.push(serviceTitle);
+        } else {
+          return;
+        }
+      });
+      setResults(sportLang);
+    }
+
+    //  search only Services based on Sport Title && Location
+    const sportLocation = [];
+    sport.map((service) => {
+      if (service.location.toLowerCase() === locations.toLowerCase()) {
+        sportLocation.push(service);
+      } else if (location.length > 0) {
+        if (service.location.toLowerCase() !== locations.toLowerCase()) {
+          setErrorSportLocation(
+            `${service.title} is not supported in ${locations}`
+          );
+        } else {
+          return;
+        }
+      } else {
+        return;
+      }
+    });
+    setResults(sportLocation);
+
+    //  search on Services based on Sport Title && Price
+    const sportLanguage = [];
+    sport.map((service) => {
+      if (_.inRange(service.price, minPrice, maxPrice)) {
+        sportLanguage.push(service);
+      }
+    });
+    setResults(sportLanguage);
+
+    //  search on Services based on Sport Title && Language && location
+    const sportLanguageLocation = [];
+    sport.map((service) =>
+      language.map((lang) => {
+        if (service.owner === lang) {
+          if (service.location.toLowerCase() === locations.toLowerCase()) {
+            sportLanguageLocation.push(service);
+          }
+        }
+      })
+    );
+    setResults(sportLanguageLocation);
+
+    //  search on Services based on Sport Title && Language && Price
+    const sportLanguagePrice = [];
+    sport.map((service) =>
+      language.map((lang) => {
+        if (service.owner === lang) {
+          if (_.inRange(service.price, minPrice, maxPrice)) {
+            sportLanguagePrice.push(service);
+          }
+        }
+      })
+    );
+    setResults(sportLanguagePrice);
+
+    //  search on Services based on Sport All Fileds
+    const sportLanguageLocationPrice = [];
+    sport.map((service) =>
+      language.map((lang) => {
+        if (service.owner === lang) {
+          if (service.location.toLowerCase() === locations.toLowerCase()) {
+            if (_.inRange(service.price, minPrice, maxPrice)) {
+              sportLanguageLocationPrice.push(service);
+            }
+          }
+        }
+      })
+    );
+    setResults(sportLanguageLocationPrice);
+
+    //  search on Services based on Sport && Location && Price
+    const sportLocationPrice = [];
+    sport.map((service) => {
+      if (service.location.toLowerCase() === locations.toLowerCase()) {
+        if (_.inRange(service.price, minPrice, maxPrice)) {
+          sportLocationPrice.push(service);
+        }
+      }
+    });
+    setResults(sportLocationPrice);
+
+    //  search on Services based on  Location && Language
+    const languageLocation = [];
+    services.map((service) =>
+      language.map((lang) => {
+        if (service.location.toLowerCase() === locations.toLowerCase()) {
+          if (service.owner === lang) {
+            languageLocation.push(service);
+          }
+        }
+      })
+    );
+    setResults(languageLocation);
+
+    //  search on Services based on  Price && Language
+    const languagePrice = [];
+    services.map((service) =>
+      language.map((lang) => {
+        if (service.owner === lang) {
+          if (_.inRange(service.price, minPrice, maxPrice)) {
+            languagePrice.push(service);
+          }
+        }
+      })
+    );
+    setResults(languagePrice);
+
+    //  search on Services based on  Price && Location
+    const locationPrice = [];
+    services.map((service) => {
+      if (service.location.toLowerCase() === locations.toLowerCase()) {
+        if (_.inRange(service.price, minPrice, maxPrice)) {
+          locationPrice.push(service);
+        }
+      }
+    });
+    setResults(locationPrice);
   };
 
   useEffect(() => {
@@ -304,7 +459,17 @@ const Results = ({ services, coaches, title, location, props }) => {
       return;
     }
   }, [querySport, queryLocation]);
-  console.log("err", errorMaxPrice, errorMinPrice);
+
+  console.log(
+    "errorMaxPrice",
+    errorMaxPrice,
+    "errorMinPrice",
+    errorMinPrice,
+    "errorSport",
+    errorSport,
+    "errorLocation",
+    errorLocation
+  );
   return (
     <Layout>
       <div className="wrapper">
@@ -324,7 +489,7 @@ const Results = ({ services, coaches, title, location, props }) => {
                     </div>
                   </div>
                   <div>
-                    {submit && sport.length === 0 && (
+                    {submit && errorSport && sport.length === 0 && (
                       <div className="Error">{errorSport}</div>
                     )}
                   </div>
@@ -337,7 +502,7 @@ const Results = ({ services, coaches, title, location, props }) => {
                         className="form-control"
                         onChange={handleChangeLanguage}
                       >
-                        <option defaultValue>Languages</option>
+                        <option defaultValue>All Languages</option>
                         <option value="en">English</option>
                         <option value="fr">French</option>
                       </select>
@@ -406,6 +571,11 @@ const Results = ({ services, coaches, title, location, props }) => {
                 </button>
               </form>
             </div>
+          </div>
+          <div>
+            {submit && errorSportLocation && location.length != 0 && (
+              <p>{errorSportLocation}</p>
+            )}
           </div>
           <Grid
             container

@@ -32,7 +32,7 @@ const Cards = (props) => {
             <span>
               <i className='fa fa-money' aria-hidden='true'></i>
             </span>
-            <p>{props.card.price.toString().substring(0, 2)}€ /h</p>
+            <p>{props.card.price}€ /h</p>
           </div>
           <div className='btn'>View Profile</div>
         </div>
