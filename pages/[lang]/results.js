@@ -147,6 +147,7 @@ const Results = ({ services, coaches, title, location, props }) => {
     }
 
     setMinPrice(minPrice);
+
     if (minPrice.length === 0)
       setErrorMinPrice(`${e.target.value} : is out of range`);
     if (minPrice.length === 0 && submit === false) {
@@ -169,10 +170,12 @@ const Results = ({ services, coaches, title, location, props }) => {
       maxPrice.pop();
       maxPrice.push(e.target.value);
     } else {
-      return setErrorMaxPrice(`${e.target.value} : is out of range`);
+      return null;
     }
     setMaxPrice(maxPrice);
-
+    if (maxPrice.length === 0) {
+      setErrorMaxPrice(`${e.target.value} : is out of range`);
+    }
     if (maxPrice.length === 0 && submit === false) {
       setValueMaxPrice(e.target.value);
     } else if (maxPrice.length === 0 && submit === true) {
@@ -288,9 +291,7 @@ const Results = ({ services, coaches, title, location, props }) => {
     });
   };
 
-  useEffect(() => {
-    
-  }, [results]);
+  useEffect(() => {}, [results]);
 
   useEffect(() => {
     if (Result.length !== 0) {
@@ -417,23 +418,22 @@ const Results = ({ services, coaches, title, location, props }) => {
             justify="center"
             className={classes.gridContainer}
           >
-            {paginate(results, currentPage, pageSize)
-              .map((card) =>
-                coaches.map((coach) =>
-                  card.owner === coach._id ? (
-                    <Grid
-                      key={card._id}
-                      onClick={() => handleClick(coach, card)}
-                      item
-                      xs={12}
-                      sm={6}
-                      md={4}
-                    >
-                      <Card card={card} coachName={coach} key={card._id} />
-                    </Grid>
-                  ) : null
-                )
-              )}
+            {paginate(results, currentPage, pageSize).map((card) =>
+              coaches.map((coach) =>
+                card.owner === coach._id ? (
+                  <Grid
+                    key={card._id}
+                    onClick={() => handleClick(coach, card)}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                  >
+                    <Card card={card} coachName={coach} key={card._id} />
+                  </Grid>
+                ) : null
+              )
+            )}
           </Grid>
 
           <div className="pagination">
