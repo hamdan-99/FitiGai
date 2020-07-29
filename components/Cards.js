@@ -6,7 +6,7 @@ const Cards = (props) => {
   return (
     <div className='container'>
       <img
-        src='https://cdn.glitch.com/323a5f71-5800-4689-9792-0fed771775d5%2FScreenshot_20180902-150158_Instagram.jpg?v=1564979250384'
+        src={`/images/${props.coachName.firstName.toUpperCase()}.png`}
         alt='profile-img'
         className='profile-img'
       />
@@ -54,7 +54,7 @@ const Cards = (props) => {
 
           .container .profile-img {
             width: 100px;
-            height: 110px;
+            height: 100px;
             border-radius: 50%;
             position: absolute;
             top: 10px;
