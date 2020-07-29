@@ -99,7 +99,8 @@ const Navbar = () => {
             margin-right: 10px;
           }
           .logoName:hover {
-            box-shadow: 0 0 5px #59f7a8, 0 0 20px #59f7a8, 0 0 44px #59f7a8;
+            box-shadow: 0 8px 6px -6px #44f59cd7;
+            
           }
           @import url('https://fonts.googleapis.com/css2?family=Faster+One&family=Monoton&family=Pacifico&display=swap');
           .logoName {
