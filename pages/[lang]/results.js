@@ -143,13 +143,14 @@ const Results = ({ services, coaches, title, location, props }) => {
       minPrice.pop();
       minPrice.push(e.target.value);
     } else {
-      return null;
+      return setErrorMinPrice(`${e.target.value} : is out of range`)
     }
 
     setMinPrice(minPrice);
+    minPrice.length !== 0
+      ? setErrorMinPrice('')
+      : null;
 
-    if (minPrice.length === 0)
-      setErrorMinPrice(`${e.target.value} : is out of range`);
     if (minPrice.length === 0 && submit === false) {
       setValueMinPrice(e.target.value);
     } else if (minPrice.length === 0 && submit === true) {
@@ -161,21 +162,21 @@ const Results = ({ services, coaches, title, location, props }) => {
 
   const handleChangePriceMax = (e) => {
     e.preventDefault();
-    const maxPrice = [];
+    const maxPrices = [];
     const number = services.map((i) => i.price);
     const min = Math.min(...number);
     const max = Math.max(...number);
 
     if (_.inRange(e.target.value, min, max)) {
-      maxPrice.pop();
-      maxPrice.push(e.target.value);
-    } else {
-      return null;
+      maxPrices.pop();
+      maxPrices.push(e.target.value);
+    } else   {
+      return setErrorMaxPrice(`${e.target.value} : is out of range`);
     }
-    setMaxPrice(maxPrice);
-    if (maxPrice.length === 0) {
-      setErrorMaxPrice(`${e.target.value} : is out of range`);
-    }
+    setMaxPrice(maxPrices);
+    maxPrices.length !== 0
+    ? setErrorMaxPrice('')
+    : null;
     if (maxPrice.length === 0 && submit === false) {
       setValueMaxPrice(e.target.value);
     } else if (maxPrice.length === 0 && submit === true) {
@@ -311,7 +312,7 @@ const Results = ({ services, coaches, title, location, props }) => {
       return;
     }
   }, [querySport, queryLocation]);
-
+  console.log("err", errorMaxPrice, errorMinPrice);
   return (
     <Layout>
       <div className="wrapper">
